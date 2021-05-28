@@ -6,3 +6,38 @@ CREATE TABLE IF NOT EXISTS accounts(
   email varchar(255) COMMENT 'User Email',
   picture varchar(255) COMMENT 'User Picture'
 ) default charset utf8 COMMENT '';
+CREATE TABLE IF NOT EXISTS keeps(
+  id INT NOT NULL AUTO_INCREMENT primary key COMMENT 'primary key',
+  creatorId VARCHAR(255) NOT NULL COMMENT 'FK: User Account',
+  name varchar(255) NOT NULL COMMENT 'Keep Name',
+  description VARCHAR(255) NOT NULL COMMENT 'Keep Description',
+  img VARCHAR(255) NOT NULL COMMENT 'Keep Img',
+  views INT COMMENT 'Keep View Count',
+  shares INT COMMENT 'Keep Shares Count',
+  keeps INT COMMENT 'Keep Keeps Count',
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'TS Created',
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'TS Update',
+  FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
+) default charset utf8 COMMENT '';
+CREATE TABLE IF NOT EXISTS vaultkeeps(
+  id INT NOT NULL AUTO_INCREMENT primary key COMMENT 'primary key',
+  creatorId VARCHAR(255) NOT NULL COMMENT 'FK: User Account',
+  vaultId INT NOT NULL COMMENT 'FK: Vault Relationship',
+  keepId INT NOT NULL COMMENT 'FK: Keep Relationship',
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+  FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE,
+  FOREIGN KEY (vaultId) REFERENCES vaults(id) ON DELETE CASCADE,
+  FOREIGN KEY (keepId) REFERENCES keeps(id) ON DELETE CASCADE
+) default charset utf8 COMMENT '';
+CREATE TABLE IF NOT EXISTS vaults(
+  id INT NOT NULL AUTO_INCREMENT primary key COMMENT 'primary key',
+  creatorId VARCHAR(255) NOT NULL COMMENT 'FK: User Account',
+  restaurantId INT NOT NULL COMMENT 'FK: User Account',
+  title varchar(255) NOT NULL COMMENT 'Vault Title',
+  description VARCHAR(255) NOT NULL COMMENT 'Vault Description',
+  isPrivate BOOLEAN NOT NULL DEFAULT 0 COMMENT 'Vault Private Boolean,Default FALSE',
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+  updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+  FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
+) default charset utf8 COMMENT '';

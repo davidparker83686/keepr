@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using CodeWorks.Auth0Provider;
 using keeprserver.Models;
+using keeprserver.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

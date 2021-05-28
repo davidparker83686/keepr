@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using keeprserver.Models;
+using keeprserver.Services;
 using keeprserver.Repositories_;
 
 namespace keeprserver.Services
 {
-  public class KeepsServices
+  public class KeepsService
   {
     private readonly KeepsRepository _keepsRepository;
 
