@@ -1,6 +1,6 @@
 namespace keeprserver.Repositories_
 {
-    public class Accounts
+    public class KeepsRepository
     {
         
     }
