@@ -33,11 +33,12 @@ CREATE TABLE IF NOT EXISTS vaultkeeps(
 CREATE TABLE IF NOT EXISTS vaults(
   id INT NOT NULL AUTO_INCREMENT primary key COMMENT 'primary key',
   creatorId VARCHAR(255) NOT NULL COMMENT 'FK: User Account',
-  restaurantId INT NOT NULL COMMENT 'FK: User Account',
   title varchar(255) NOT NULL COMMENT 'Vault Title',
   description VARCHAR(255) NOT NULL COMMENT 'Vault Description',
+  img VARCHAR(255) COMMENT 'Keep Img',
   isPrivate BOOLEAN NOT NULL DEFAULT 0 COMMENT 'Vault Private Boolean,Default FALSE',
   createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
   updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
+DROP TABLE vaults;

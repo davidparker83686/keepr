@@ -83,7 +83,7 @@ namespace keepr.Server
     private IDbConnection CreateDbConnection()
     {
       // NOTE this must match the object structure in appsettings.json
-      string connectionString = Configuration["DB:Connectionstring"];
+      string connectionString = Configuration["DB:gearhost"];
       return new MySqlConnection(connectionString);
     }
 

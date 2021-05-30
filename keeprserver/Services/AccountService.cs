@@ -14,14 +14,17 @@ namespace keeprserver.Services
       _repo = repo;
     }
 
+    // ________________________________________________________________________________________________________________________________________________
     internal string GetProfileEmailById(string id)
     {
       return _repo.GetById(id).Email;
     }
+    // ________________________________________________________________________________________________________________________________________________
     internal Account GetProfileByEmail(string email)
     {
       return _repo.GetByEmail(email);
     }
+    // ________________________________________________________________________________________________________________________________________________
     internal Account GetOrCreateProfile(Account userInfo)
     {
       Account profile = _repo.GetById(userInfo.Id);
@@ -31,12 +34,13 @@ namespace keeprserver.Services
       }
       return profile;
     }
+    // ________________________________________________________________________________________________________________________________________________
 
     internal Profile GetProfileById(string id)
     {
       return _repo.GetById(id);
     }
-
+    // ________________________________________________________________________________________________________________________________________________
     internal Account Edit(Account editData, string userEmail)
     {
       Account original = GetProfileByEmail(userEmail);

@@ -17,22 +17,42 @@ namespace keeprserver.Controllers
   public class KeepsController : ControllerBase
   {
     private readonly KeepsService _keepsService;
+    private readonly AccountService _accountService;
 
-    public KeepsController(KeepsService keepsService)
+    public KeepsController(KeepsService keepsService, AccountService accountService)
     {
       _keepsService = keepsService;
+      _accountService = accountService;
     }
     // -----------------------------------------------------------------------------------------------------
     [HttpPost]
-
-    public ActionResult<Keep> Create([FromBody] Keep newKeep)
+    [Authorize]
+    public async Task<ActionResult<Keep>> Create([FromBody] Keep newKeep)
     {
       try
       {
-        // newKeep.CreatorId = "fixthis later";
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        // Account fullAccount = _accountService.GetOrCreateAccount(userInfo);
+        newKeep.CreatorId = userInfo.Id;
         Keep keeps = _keepsService.Create(newKeep);
-
+        // keep.Creator = fullAccount;
         return Ok(keeps);
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+    // -----------------------------------------------------------------------------------------------------
+    [HttpPut("{id}")]
+    [Authorize]
+    public ActionResult<Keep> Update(int id, [FromBody] Keep update)
+    {
+      try
+      {
+        update.Id = id;
+        Keep updated = _keepsService.Update(update);
+        return Ok(updated);
       }
       catch (Exception e)
       {
@@ -46,9 +66,8 @@ namespace keeprserver.Controllers
     {
       try
       {
-        // TODO[epic=Auth] Get the user info to set the creatorID
+
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        // safety to make sure an account exists for that user before CREATE-ing stuff.
         _keepsService.Delete(id, userInfo.Id);
         return Ok("Deleted");
       }
@@ -87,21 +106,5 @@ namespace keeprserver.Controllers
       }
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    [HttpPut("{id}")]
-    // [Authorize]
-    public ActionResult<Keep> Update(int id, [FromBody] Keep update)
-    {
-      try
-      {
-        update.Id = id;
-        Keep updated = _keepsService.Update(update);
-        return Ok(updated);
-      }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      }
-    }
   }
 }
