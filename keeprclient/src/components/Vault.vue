@@ -1,11 +1,12 @@
 <template>
   <div>
-    <button type="button" class="btn" data-toggle="modal" data-target="#keepDetailsModal">
-      <div class="row justify-content-between">
-        {{ keep.name }}
-        {{ keep.creator.picture }}
-        {{ keep.img }}
-      </div>
+    <button type="button" class="btn">
+      <router-link style="color: inherit;" :to="{name: 'Profile', params: {id: vault.creatorId}}">
+        <div class="row justify-content-between">
+          {{ vault.name }}
+          {{ vault.img }}
+        </div>
+      </router-link>
     </button>
   </div>
 </template>
@@ -13,13 +14,13 @@
 <script>
 import { reactive, computed } from 'vue'
 import { AppState } from '../AppState'
-// import { keepsService } from '../services/KeepsService'
+// import { vaultsService } from '../services/vaultsService'
 // import { logger } from '../utils/Logger'
 // import Notification from '../utils/Notification'
 export default {
-  name: 'Item',
+  name: 'Vault',
   props: {
-    item: {
+    vault: {
       type: Object,
       required: true
     }
@@ -28,7 +29,7 @@ export default {
     const state = reactive({
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
-      keep: computed(() => AppState.keeps)
+      vault: computed(() => AppState.vaults)
     })
     return {
       state

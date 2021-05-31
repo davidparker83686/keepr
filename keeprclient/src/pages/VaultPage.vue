@@ -30,7 +30,7 @@ import { accountService } from '../services/AccountService'
 import { keepService } from '../services/KeepService'
 import { vaultService } from '../services/VaultService'
 export default {
-  name: 'Profile',
+  name: 'VaultPage',
   setup() {
     const route = useRoute()
     const state = reactive({

@@ -15,7 +15,13 @@
     <div class="row">
       <div class="col-12">
         <span>Vaults</span>
-        <button type="button" class="btn btn-none text-success">
+        <button type="button"
+                class="btn btn-none text-success"
+                data-toggle="modal"
+                title="Create Vault"
+                aria="Create Vault"
+                data-target="#newVaultModal"
+        >
           <i class="fas fa-plus"></i>
         </button>
       </div>
@@ -27,7 +33,13 @@
     <div class="row">
       <div class="col-12">
         <span>Keeps</span>
-        <button type="button" class="btn btn-none text-success">
+        <button type="button"
+                class="btn btn-none text-success"
+                title="Create Keep"
+                aria="Create Vault"
+                data-toggle="modal"
+                data-target="#newKeepModal"
+        >
           <i class="fas fa-plus"></i>
         </button>
       </div>
@@ -35,6 +47,8 @@
         <Keep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />
       </div>
     </div>
+    <new-keep-modal />
+    <new-vault-modal />
   </div>
 </template>
 
@@ -45,7 +59,9 @@ import { useRoute } from 'vue-router'
 import { accountService } from '../services/AccountService'
 import { keepService } from '../services/KeepService'
 import { vaultService } from '../services/VaultService'
+import NewKeepModal from '../components/NewKeepModal.vue'
 export default {
+  components: { NewKeepModal },
   name: 'Profile',
   setup() {
     const route = useRoute()
@@ -74,6 +90,7 @@ export default {
     return {
       state,
       route
+
     }
   }
 }
