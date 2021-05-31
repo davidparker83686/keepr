@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="profile container-fluid">
     <!-- Profile info -->
     <div class="row">
       <div class="col">
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { computed, onMounted, reactive, watch } from 'vue'
+import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { useRoute } from 'vue-router'
 import { accountService } from '../services/AccountService'
@@ -56,9 +56,9 @@ export default {
       account: computed(() => AppState.account),
       user: computed(() => AppState.user)
     })
-    watch(() => state.loading, () => {
-      accountService.getActive(route.params.id)
-    })
+    // watch(() => state.loading, () => {
+    //   accountService.getActive(route.params.id)
+    // })
     onMounted(async() => {
       try {
         if (!state.loading) {
