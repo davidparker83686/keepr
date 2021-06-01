@@ -14,12 +14,14 @@ namespace keepr.Controllers
   public class VaultsController : ControllerBase
   {
     private readonly VaultsService _vaultsService;
+    private readonly KeepsService _keepsService;
     private readonly AccountService _accountService;
 
-    public VaultsController(VaultsService vaultsService, AccountService accountService)
+    public VaultsController(VaultsService vaultsService, KeepsService keepsService, AccountService accountService)
     {
       _vaultsService = vaultsService;
       _accountService = accountService;
+      _keepsService = keepsService;
     }
     // -----------------------------------------------------------------------------------------------------
     [HttpPost]
@@ -100,6 +102,20 @@ namespace keepr.Controllers
         update.Id = id;
         Vault updated = _vaultsService.Update(update);
         return Ok(updated);
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+    [HttpGet("{id}/keeps")]
+
+    public ActionResult<IEnumerable<Keep>> GetKeepByVault(int id)
+    {
+      try
+      {
+        IEnumerable<Keep> keeps = _vaultsService.GetKeepByVault(id);
+        return Ok(keeps);
       }
       catch (Exception e)
       {

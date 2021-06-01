@@ -21,6 +21,22 @@ namespace keepr.Repositories_
       return _db.Query<Keep>(sql);
     }
     // -----------------------------------------------------------------------------------------------------
+    internal IEnumerable<Keep> GetKeepByProfile(string id)
+    {
+      string sql = "SELECT * FROM keeps WHERE creatorId = @id;";
+      // return _db.QueryFirstOrDefault<Keep>(sql, new { id });
+      // return _db.Query<Keep>(sql);
+      return _db.Query<Keep>(sql, new { id });
+    }
+
+
+
+
+
+
+
+
+    // -----------------------------------------------------------------------------------------------------
     public Keep Create(Keep newKeep)
     {
       string sql = @"
@@ -64,5 +80,6 @@ namespace keepr.Repositories_
       return affectedRows == 1;
     }
   }
+
 
 }

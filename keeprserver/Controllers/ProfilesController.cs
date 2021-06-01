@@ -41,12 +41,12 @@ namespace keepr.Controllers
       }
     }
     // -----------------------------------------------------------------------------------------------------
-    [HttpGet("{id}")]
-    public ActionResult<Keep> GetKeepByProfile(int id)
+    [HttpGet("{id}/keeps")]
+    public ActionResult<IEnumerable<Keep>> GetKeepByProfile(string id)
     {
       try
       {
-        Keep keeps = _keepsService.GetById(id);
+        IEnumerable<Keep> keeps = _keepsService.GetKeepByProfile(id);
         return Ok(keeps);
       }
       catch (Exception e)
@@ -55,12 +55,12 @@ namespace keepr.Controllers
       }
     }
     // -----------------------------------------------------------------------------------------------------
-    [HttpGet("{id}")]
-    public ActionResult<Vault> GetVaultByProfile(int id)
+    [HttpGet("{id}/vaults")]
+    public ActionResult<IEnumerable<Vault>> GetVaultByProfile(string id)
     {
       try
       {
-        Vault vaults = _vaultsService.GetById(id);
+        IEnumerable<Vault> vaults = _vaultsService.GetVaultByProfile(id);
         return Ok(vaults);
       }
       catch (Exception e)

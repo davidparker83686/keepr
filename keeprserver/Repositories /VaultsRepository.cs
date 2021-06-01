@@ -53,6 +53,14 @@ namespace keepr.Repositories_
       int affectedRows = _db.Execute(sql, original);
       return affectedRows == 1;
     }
+
+
+    internal IEnumerable<Vault> GetVaultByProfile(string id)
+    {
+      string sql = "SELECT * FROM vaults WHERE creatorId = @id;";
+      return _db.Query<Vault>(sql, new { id });
+    }
+
     // -----------------------------------------------------------------------------------------------------
     internal bool Delete(object id)
     {

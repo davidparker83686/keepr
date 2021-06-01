@@ -45,6 +45,40 @@ namespace keepr.Repositories_
       string sql = "SELECT * FROM vaultkeeps WHERE id =@id;";
       return _db.QueryFirstOrDefault<VaultKeep>(sql, new { id });
     }
-  }
 
-}
+
+    // -----------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+    internal IEnumerable<Keep> GetKeepByVault(int id)
+    {
+      string sql = "SELECT * FROM keeps WHERE creatorId = @id;";
+
+      return _db.Query<Keep>(sql, new { id });
+    }
+
+
+    internal List<WarehouseProductViewModel> GetProductByWarehouseId(int warehouseId)
+    {
+      string sql = @"
+                SELECT
+                p.*,
+                w.location,
+                wp.id as warehouseProductId,
+                wp.productId as productId,
+                wp.warehouseId as warehouseId
+                FROM
+                warehouse_products wp
+                JOIN warehouses w ON w.id = wp.warehouseId
+                JOIN products p ON p.id = wp.productId
+                WHERE
+                wp.warehouseId = @warehouseId;
+            ";
+      return _db.Query<WarehouseProductViewModel>(sql, new { warehouseId }).ToList();
+    }
+
+  }

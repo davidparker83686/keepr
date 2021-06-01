@@ -8,10 +8,12 @@ namespace keepr.Services
   public class VaultsService
   {
     private readonly VaultsRepository _vaultsRepository;
+    private readonly VaultKeepsRepository _vaultKeepsRepository;
 
-    public VaultsService(VaultsRepository vaultsRepository)
+    public VaultsService(VaultsRepository vaultsRepository, VaultKeepsRepository vaultKeepsRepository)
     {
       _vaultsRepository = vaultsRepository;
+      _vaultKeepsRepository = vaultKeepsRepository;
     }
     // -----------------------------------------------------------------------------------------------------
     internal IEnumerable<Vault> GetAll()
@@ -30,6 +32,11 @@ namespace keepr.Services
       return vaults;
     }
     // -----------------------------------------------------------------------------------------------------
+    internal IEnumerable<Keep> GetKeepByVault(int id)
+    {
+      return _vaultKeepsRepository.GetKeepByVault(id);
+    }
+    // -----------------------------------------------------------------------------------------------------
     internal Vault GetById(int id)
     {
       Vault vault = _vaultsRepository.GetById(id);
@@ -39,6 +46,12 @@ namespace keepr.Services
       }
       return (Vault)vault;
     }
+    // -----------------------------------------------------------------------------------------------------
+    internal IEnumerable<Vault> GetVaultByProfile(string id)
+    {
+      return _vaultsRepository.GetVaultByProfile(id);
+    }
+    // -----------------------------------------------------------------------------------------------------
 
     internal void Delete(int apple, string id2)
     {

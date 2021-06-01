@@ -19,6 +19,12 @@ namespace keepr.Services
       return _keepsRepository.GetAll();
     }
     // -----------------------------------------------------------------------------------------------------
+    internal IEnumerable<Keep> GetKeepByProfile(string id)
+    {
+      return _keepsRepository.GetKeepByProfile(id);
+    }
+
+    // -----------------------------------------------------------------------------------------------------
     internal IEnumerable<Keep> GetByCreatorId(string id)
     {
       throw new NotImplementedException();
