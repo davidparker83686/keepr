@@ -8,4 +8,8 @@ namespace keepr.Models
     public int KeepId { get; set; }
     public Account Creator { get; internal set; }
   }
+  public class VaultKeepViewModel : Keep
+  {
+    public int VaultKeepId { get; set; }
+  }
 }

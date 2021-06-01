@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Dapper;
 using keepr.Models;
 
@@ -48,37 +49,28 @@ namespace keepr.Repositories_
 
 
     // -----------------------------------------------------------------------------------------------------
+    // internal IEnumerable<Keep> GetKeepByVault(int id)
+    // {
+    //   string sql = "SELECT * FROM keeps WHERE creatorId = @id;";
 
+    //   return _db.Query<Keep>(sql, new { id });
+    // }
 
-
-
-
-
-    internal IEnumerable<Keep> GetKeepByVault(int id)
-    {
-      string sql = "SELECT * FROM keeps WHERE creatorId = @id;";
-
-      return _db.Query<Keep>(sql, new { id });
-    }
-
-
-    internal List<WarehouseProductViewModel> GetProductByWarehouseId(int warehouseId)
+    internal IEnumerable<VaultKeepViewModel> GetKeepByVault(int id)
     {
       string sql = @"
                 SELECT
-                p.*,
-                w.location,
-                wp.id as warehouseProductId,
-                wp.productId as productId,
-                wp.warehouseId as warehouseId
-                FROM
-                warehouse_products wp
-                JOIN warehouses w ON w.id = wp.warehouseId
-                JOIN products p ON p.id = wp.productId
-                WHERE
-                wp.warehouseId = @warehouseId;
-            ";
-      return _db.Query<WarehouseProductViewModel>(sql, new { warehouseId }).ToList();
+                k.*,
+                v.*,
+                kv.id as vaultkeepId,
+                kv.vaultId as vaultId,
+                wp.keepId as keepId
+                FROM vaultkeeps vk
+                JOIN vaults v ON v.id = vk.vaultId
+                JOIN keeps k ON k.id = vk.keepId
+                WHERE vk.vaultkeepId = @vaultkeepId;";
+      return _db.Query<VaultKeepViewModel>(sql, new { id }).ToList();
     }
 
   }
+}

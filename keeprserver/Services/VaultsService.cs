@@ -32,7 +32,7 @@ namespace keepr.Services
       return vaults;
     }
     // -----------------------------------------------------------------------------------------------------
-    internal IEnumerable<Keep> GetKeepByVault(int id)
+    internal IEnumerable<VaultKeepViewModel> GetKeepByVault(int id)
     {
       return _vaultKeepsRepository.GetKeepByVault(id);
     }
