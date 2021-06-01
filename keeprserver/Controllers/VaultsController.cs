@@ -32,7 +32,7 @@ namespace keepr.Controllers
         // Account fullAccount = _accountService.GetOrCreateAccount(userInfo);
         newVault.CreatorId = userInfo.Id;
 
-        Vault keeps = _vaultsService.Create(newVault);
+        Vault vaults = _vaultsService.Create(newVault);
         //TODO[epic=Populate] adds the account to the new object as the creator
         vaults.Creator = userInfo;
         return Ok(vaults);

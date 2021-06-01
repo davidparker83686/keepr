@@ -41,14 +41,17 @@ namespace keepr
       // REPOS
       services.AddScoped<AccountRepository>();
       services.AddScoped<KeepsRepository>();
+      services.AddScoped<VaultsRepository>();
 
       // BL
       services.AddScoped<AccountService>();
       services.AddScoped<KeepsService>();
+      services.AddScoped<VaultsService>();
 
 
       services.AddTransient<AccountService>();
       services.AddTransient<KeepsService>();
+      services.AddTransient<VaultsService>();
     }
     private void ConfigureCors(IServiceCollection services)
     {
