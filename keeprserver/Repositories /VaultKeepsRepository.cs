@@ -60,17 +60,16 @@ namespace keepr.Repositories_
     {
       string sql = @"
                 SELECT
-                k.*,
                 v.*,
-                kv.id as vaultkeepId,
-                kv.vaultId as vaultId,
-                wp.keepId as keepId
+                k.*,
+                vk.id as vaultkeepId,
+                vk.vaultId as vaultId,
+                vk.keepId as keepId
                 FROM vaultkeeps vk
                 JOIN vaults v ON v.id = vk.vaultId
                 JOIN keeps k ON k.id = vk.keepId
-                WHERE vk.vaultkeepId = @vaultkeepId;";
+                WHERE vk.vaultkeepId = @id;";
       return _db.Query<VaultKeepViewModel>(sql, new { id }).ToList();
     }
-
   }
 }
