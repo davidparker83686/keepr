@@ -1,7 +1,7 @@
 <template>
   <div>
     <button type="button" class="btn" data-toggle="modal" data-target="#keepDetailsModal">
-      <div class="row justify-content-between">
+      <div class="row justify-content-between" v-if="keep">
         {{ keep.name }}
         {{ keep.creator.picture }}
         {{ keep.img }}

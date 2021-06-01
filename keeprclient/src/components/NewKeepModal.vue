@@ -69,7 +69,7 @@
 
 <script>
 import { reactive, computed } from 'vue'
-import { keepsService } from '../services/KeepService'
+import { keepsService } from '../services/KeepsService'
 import $ from 'jquery'
 import { AppState } from '../AppState'
 // import { accountService } from '../services/AccountService'

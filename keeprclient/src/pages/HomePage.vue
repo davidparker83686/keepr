@@ -12,7 +12,7 @@
 <script>
 import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
-import { keepService } from '../services/KeepService'
+import { keepsService } from '../services/KeepsService'
 
 export default {
   name: 'Home',
@@ -24,7 +24,8 @@ export default {
     })
     onMounted(async() => {
       try {
-        await keepService.getAllKeeps()
+        debugger
+        await keepsService.getAllKeeps()
       } catch (error) {
         console.error(error)
       }

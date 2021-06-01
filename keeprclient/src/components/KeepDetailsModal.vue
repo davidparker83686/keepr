@@ -73,7 +73,7 @@
 
 <script>
 import { reactive, computed } from 'vue'
-import { keepService } from '../services/KeepService'
+import { keepsService } from '../services/KeepsService'
 import $ from 'jquery'
 import { AppState } from '../AppState'
 // import { accountService } from '../services/AccountService'
@@ -97,7 +97,7 @@ export default {
       async deleteKeep(id) {
         try {
           if (await Notification.confirmAction('Are you sure you want to delete this keep?', 'You won\'t be able to revert this.', '', 'Yes, Delete')) {
-            await keepService.deleteKeep(id)
+            await keepsService.deleteKeep(id)
             Notification.toast('Successfully Deleted Keep', 'success')
           }
         } catch (error) {
@@ -106,7 +106,7 @@ export default {
       },
       async addToVault() {
         try {
-          await keepService.addToVault(state.newKeep)
+          await keepsService.addToVault(state.newKeep)
           state.newKeep = {}
           $('#keepDetailsModal').modal('hide')
         } catch (error) {

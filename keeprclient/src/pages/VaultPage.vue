@@ -27,7 +27,7 @@ import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { useRoute } from 'vue-router'
 import { accountService } from '../services/AccountService'
-import { keepService } from '../services/KeepService'
+import { keepsService } from '../services/KeepsService'
 import { vaultService } from '../services/VaultService'
 export default {
   name: 'VaultPage',
@@ -48,7 +48,7 @@ export default {
         if (!state.loading) {
           await accountService.getActive(route.params.id)
         }
-        await keepService.getKeepsByUserId(route.params.id)
+        await keepsService.getKeepsByUserId(route.params.id)
         await vaultService.getVaultsByUserId(route.params.id)
       } catch (error) {
         console.error(error)
