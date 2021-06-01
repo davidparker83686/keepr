@@ -34,7 +34,12 @@ namespace keepr.Repositories_
       return affectedRows == 1;
     }
     // -----------------------------------------------------------------------------------------------------
-
+    public IEnumerable<VaultKeep> GetAll()
+    {
+      string sql = "SELECT * FROM vaultkeeps";
+      return _db.Query<VaultKeep>(sql);
+    }
+    // -----------------------------------------------------------------------------------------------------
     public VaultKeep GetById(int id)
     {
       string sql = "SELECT * FROM vaultkeeps WHERE id =@id;";

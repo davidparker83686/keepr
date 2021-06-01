@@ -24,14 +24,17 @@ namespace keepr.Controllers
     // -----------------------------------------------------------------------------------------------------
     [HttpPost]
     [Authorize]
-
     public async Task<ActionResult<VaultKeep>> Create([FromBody] VaultKeep newVaultKeep)
     {
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        // Account fullAccount = _accountService.GetOrCreateAccount(userInfo);
         newVaultKeep.CreatorId = userInfo.Id;
+
         VaultKeep vaultKeeps = _vaultKeepsService.Create(newVaultKeep);
+        //TODO[epic=Populate] adds the account to the new object as the creator
+        vaultKeeps.Creator = userInfo;
         return Ok(vaultKeeps);
       }
       catch (Exception e)
@@ -57,7 +60,19 @@ namespace keepr.Controllers
         return BadRequest(e.Message);
       }
     }
-
+    [HttpGet]
+    public ActionResult<IEnumerable<VaultKeep>> Get()
+    {
+      try
+      {
+        IEnumerable<VaultKeep> vaultKeeps = _vaultKeepsService.GetAll();
+        return Ok(vaultKeeps);
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
     // -----------------------------------------------------------------------------------------------------
 
     [HttpGet("{id}")]
