@@ -1,9 +1,9 @@
 
 using System;
-using keeprserver.Models;
-using keeprserver.Repositories_;
+using keepr.Models;
+using keepr.Repositories_;
 
-namespace keeprserver.Services
+namespace keepr.Services
 
 {
   public class AccountService

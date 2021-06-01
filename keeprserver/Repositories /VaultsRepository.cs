@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using Dapper;
-using keeprserver.Models;
+using keepr.Models;
 
-namespace keeprserver.Repositories_
+namespace keepr.Repositories_
 {
   public class VaultsRepository
   {

@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using keeprserver.Models;
-using keeprserver.Repositories_;
-using keeprserver.Services;
+using keepr.Models;
+using keepr.Repositories_;
 
-namespace keeprserver.Services
+namespace keepr.Services
 {
   public class VaultKeepsService
   {

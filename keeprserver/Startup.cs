@@ -5,8 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using keepr.Repositories_;
 using keepr.Services;
-using keeprserver.Repositories_;
-using keeprserver.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using Dapper;
-using keeprserver.Models;
+using keepr.Models;
 
 namespace keepr.Repositories_
 {

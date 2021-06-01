@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using CodeWorks.Auth0Provider;
+using keepr.Models;
 using keepr.Services;
-using keeprserver.Models;
-using keeprserver.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

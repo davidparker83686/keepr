@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace keeprserver.Models
+namespace keepr.Models
 {
   public class Account : Profile
   {

@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using keeprserver.Models;
-using keeprserver.Services;
-using keeprserver.Repositories_;
 using keepr.Repositories_;
+using keepr.Models;
 
 namespace keepr.Services
 {
