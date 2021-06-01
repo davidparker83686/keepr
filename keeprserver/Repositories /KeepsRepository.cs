@@ -4,7 +4,7 @@ using System.Data;
 using Dapper;
 using keeprserver.Models;
 
-namespace keeprserver.Repositories_
+namespace keepr.Repositories_
 {
   public class KeepsRepository
   {

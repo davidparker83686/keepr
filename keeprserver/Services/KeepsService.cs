@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using keeprserver.Models;
 using keeprserver.Services;
 using keeprserver.Repositories_;
+using keepr.Repositories_;
 
-namespace keeprserver.Services
+namespace keepr.Services
 {
   public class KeepsService
   {

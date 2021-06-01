@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using keepr.Repositories_;
+using keepr.Services;
 using keeprserver.Repositories_;
 using keeprserver.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -17,7 +19,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MySqlConnector;
 
-namespace keepr.Server
+namespace keepr
 {
   public class Startup
   {
@@ -30,23 +32,25 @@ namespace keepr.Server
     {
       ConfigureCors(services);
       ConfigureAuth(services);
-
       services.AddControllers();
       services.AddSwaggerGen(c =>
       {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "keepr.Server", Version = "v1" });
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "keepr", Version = "v1" });
       });
 
       services.AddScoped<IDbConnection>(x => CreateDbConnection());
 
       // REPOS
       services.AddScoped<AccountRepository>();
+      services.AddScoped<KeepsRepository>();
 
       // BL
       services.AddScoped<AccountService>();
+      services.AddScoped<KeepsService>();
 
 
       services.AddTransient<AccountService>();
+      services.AddTransient<KeepsService>();
     }
     private void ConfigureCors(IServiceCollection services)
     {
