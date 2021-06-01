@@ -57,8 +57,7 @@ namespace keepr.Services
       Vault original = GetById(update.Id);
       original.Name = update.Name.Length > 0 ? update.Name : original.Name;
       original.Description = update.Description.Length > 0 ? update.Description : original.Description;
-
-      //   original.IsPrivate = update.IsPrivate > true ? update.IsPrivate : original.IsPrivate;
+      original.IsPrivate = update.IsPrivate != update.IsPrivate ? update.IsPrivate : original.IsPrivate;
 
       if (_vaultsRepository.Update(original))
       {

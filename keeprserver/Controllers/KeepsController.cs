@@ -42,30 +42,6 @@ namespace keepr.Controllers
         return BadRequest(e.Message);
       }
     }
-
-
-
-
-
-
-
-
-    // -----------------------------------------------------------------------------------------------------
-    // [HttpPut("{id}")]
-    // [Authorize]
-    // public ActionResult<Keep> Update(int id, [FromBody] Keep update)
-    // {
-    //   try
-    //   {
-    //     update.Id = id;
-    //     Keep updated = _keepsService.Update(update);
-    //     return Ok(updated);
-    //   }
-    //   catch (Exception e)
-    //   {
-    //     return BadRequest(e.Message);
-    //   }
-    // }
     // -----------------------------------------------------------------------------------------------------
     [HttpDelete("{id}")]
     [Authorize]
@@ -73,7 +49,6 @@ namespace keepr.Controllers
     {
       try
       {
-
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
         _keepsService.Delete(id, userInfo.Id);
         return Ok("Deleted");
@@ -106,6 +81,21 @@ namespace keepr.Controllers
       {
         Keep keeps = _keepsService.GetById(id);
         return Ok(keeps);
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+    [HttpPut("{id}")]
+    // [Authorize]
+    public ActionResult<Keep> Update(int id, [FromBody] Keep update)
+    {
+      try
+      {
+        update.Id = id;
+        Keep updated = _keepsService.Update(update);
+        return Ok(updated);
       }
       catch (Exception e)
       {

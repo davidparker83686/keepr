@@ -31,10 +31,10 @@ namespace keepr.Services
     }
 
     // -----------------------------------------------------------------------------------------------------
-    internal IEnumerable<Keep> GetAll()
-    {
-      return _vaultKeepsRepository.GetAll();
-    }
+    // internal IEnumerable<Keep> GetAll()
+    // {
+    //   return _vaultKeepsRepository.GetAll();
+    // }
 
     // -----------------------------------------------------------------------------------------------------
     internal VaultKeep GetById(int id)

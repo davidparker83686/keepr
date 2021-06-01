@@ -45,6 +45,7 @@ namespace keepr.Repositories_
       UPDATE vaults
       SET
         name = @Name,
+        img = @Img,
         description = @Description,
         isPrivate = @IsPrivate
       WHERE id = @Id

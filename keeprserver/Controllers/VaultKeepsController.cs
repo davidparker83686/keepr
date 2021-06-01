@@ -60,19 +60,20 @@ namespace keepr.Controllers
         return BadRequest(e.Message);
       }
     }
-    [HttpGet]
-    public ActionResult<IEnumerable<VaultKeep>> Get()
-    {
-      try
-      {
-        IEnumerable<VaultKeep> vaultKeeps = _vaultKeepsService.GetAll();
-        return Ok(vaultKeeps);
-      }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      }
-    }
+    // [HttpGet]
+    // public ActionResult<IEnumerable<VaultKeep>> Get()
+    // {
+    //   try
+    //   {
+    //     IEnumerable<VaultKeep> vaultKeeps = _vaultKeepsService.GetAll();
+    //     // IEnumerable<VaultKeep> vaultKeeps = _vaultKeepsService.GetAll();
+    //     return Ok(vaultKeeps);
+    //   }
+    //   catch (Exception e)
+    //   {
+    //     return BadRequest(e.Message);
+    //   }
+    // }
     // -----------------------------------------------------------------------------------------------------
 
     [HttpGet("{id}")]

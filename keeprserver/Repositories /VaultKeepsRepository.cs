@@ -18,9 +18,9 @@ namespace keepr.Repositories_
     {
       string sql = @"
       INSERT INTO vaultkeeps
-      (vaultId,keepId)
+      (creatorId, vaultId, keepId)
       VALUES
-      ( @VaultId, @KeepId;
+      ( @CreatorId, @VaultId, @KeepId);
       SELECT LAST_INSERT_ID();";
 
       newVaultKeep.Id = _db.ExecuteScalar<int>(sql, newVaultKeep);
@@ -34,11 +34,11 @@ namespace keepr.Repositories_
       return affectedRows == 1;
     }
     // -----------------------------------------------------------------------------------------------------
-    public IEnumerable<VaultKeep> GetAll()
-    {
-      string sql = "SELECT * FROM vaultkeeps";
-      return _db.Query<VaultKeep>(sql);
-    }
+    // public IEnumerable<VaultKeep> GetAll()
+    // {
+    //   string sql = "SELECT * FROM vaultkeeps";
+    //   return _db.Query<VaultKeep>(sql);
+    // }
     // -----------------------------------------------------------------------------------------------------
     public VaultKeep GetById(int id)
     {

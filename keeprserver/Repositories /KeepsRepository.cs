@@ -40,22 +40,22 @@ namespace keepr.Repositories_
       return _db.QueryFirstOrDefault<Keep>(sql, new { id });
     }
     // -----------------------------------------------------------------------------------------------------
-    // internal bool Update(Keep original)
-    // {
-    //   string sql = @"
-    //   UPDATE keeps
-    //   SET
-    //     name = @Name,
-    //     description = @Description,
-    //     img = @Img,
-    //     views = @Views,
-    //     shares = @Shares,
-    //     keeps = @Keeps
-    //   WHERE id = @Id
-    //   ";
-    //   int affectedRows = _db.Execute(sql, original);
-    //   return affectedRows == 1;
-    // }
+    internal bool Update(Keep original)
+    {
+      string sql = @"
+      UPDATE keeps
+      SET
+        name = @Name,
+        description = @Description,
+        img = @Img,
+        views = @Views,
+        shares = @Shares,
+        keeps = @Keeps
+      WHERE id = @Id
+      ";
+      int affectedRows = _db.Execute(sql, original);
+      return affectedRows == 1;
+    }
     // -----------------------------------------------------------------------------------------------------
     internal bool Delete(object id)
     {

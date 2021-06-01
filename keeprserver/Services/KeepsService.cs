@@ -52,22 +52,22 @@ namespace keepr.Services
 
 
     // -----------------------------------------------------------------------------------------------------
-    // internal Keep Update(Keep update)
-    // {
-    //   Keep original = GetById(update.Id);
-    //   original.Name = update.Name.Length > 0 ? update.Name : original.Name;
-    //   original.Description = update.Description.Length > 0 ? update.Description : original.Description;
-    //   original.Img = update.Img.Length > 0 ? update.Img : original.Img;
-    //   original.Views = update.Views > 0 ? update.Views : original.Views;
-    //   original.Shares = update.Shares > 0 ? update.Shares : original.Shares;
-    //   original.Keeps = update.Keeps > 0 ? update.Keeps : original.Keeps;
+    internal Keep Update(Keep update)
+    {
+      Keep original = GetById(update.Id);
+      original.Name = update.Name.Length > 0 ? update.Name : original.Name;
+      original.Description = update.Description.Length > 0 ? update.Description : original.Description;
+      original.Img = update.Img.Length > 0 ? update.Img : original.Img;
+      original.Views = update.Views > 0 ? update.Views : original.Views;
+      original.Shares = update.Shares > 0 ? update.Shares : original.Shares;
+      original.Keeps = update.Keeps > 0 ? update.Keeps : original.Keeps;
 
-    //   if (_keepsRepository.Update(original))
-    //   {
-    //     return original;
-    //   }
-    //   throw new Exception("Something Went Wrong???");
-    // }
+      if (_keepsRepository.Update(original))
+      {
+        return original;
+      }
+      throw new Exception("Something Went Wrong???");
+    }
   }
 
 }
