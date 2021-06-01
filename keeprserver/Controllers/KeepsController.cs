@@ -43,21 +43,21 @@ namespace keepr.Controllers
       }
     }
     // -----------------------------------------------------------------------------------------------------
-    [HttpPut("{id}")]
-    [Authorize]
-    public ActionResult<Keep> Update(int id, [FromBody] Keep update)
-    {
-      try
-      {
-        update.Id = id;
-        Keep updated = _keepsService.Update(update);
-        return Ok(updated);
-      }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      }
-    }
+    // [HttpPut("{id}")]
+    // [Authorize]
+    // public ActionResult<Keep> Update(int id, [FromBody] Keep update)
+    // {
+    //   try
+    //   {
+    //     update.Id = id;
+    //     Keep updated = _keepsService.Update(update);
+    //     return Ok(updated);
+    //   }
+    //   catch (Exception e)
+    //   {
+    //     return BadRequest(e.Message);
+    //   }
+    // }
     // -----------------------------------------------------------------------------------------------------
     [HttpDelete("{id}")]
     [Authorize]
