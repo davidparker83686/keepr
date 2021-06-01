@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using CodeWorks.Auth0Provider;
 using keepr.Models;
 using keepr.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 
 namespace keepr.Controllers
 {
@@ -33,8 +31,10 @@ namespace keepr.Controllers
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
         // Account fullAccount = _accountService.GetOrCreateAccount(userInfo);
         newKeep.CreatorId = userInfo.Id;
+
         Keep keeps = _keepsService.Create(newKeep);
-        // keep.Creator = fullAccount;
+        //TODO[epic=Populate] adds the account to the new object as the creator
+        keeps.Creator = userInfo;
         return Ok(keeps);
       }
       catch (Exception e)
@@ -42,6 +42,14 @@ namespace keepr.Controllers
         return BadRequest(e.Message);
       }
     }
+
+
+
+
+
+
+
+
     // -----------------------------------------------------------------------------------------------------
     // [HttpPut("{id}")]
     // [Authorize]

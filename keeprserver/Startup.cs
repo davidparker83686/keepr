@@ -79,7 +79,6 @@ namespace keepr
         options.Authority = $"https://{Configuration["Auth0:Domain"]}/";
         options.Audience = Configuration["Auth0:Audience"];
       });
-
     }
 
     private IDbConnection CreateDbConnection()

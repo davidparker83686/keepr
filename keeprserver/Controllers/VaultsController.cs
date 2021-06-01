@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-
 using CodeWorks.Auth0Provider;
 using keepr.Models;
 using keepr.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
 
 namespace keepr.Controllers
 {
@@ -17,21 +14,27 @@ namespace keepr.Controllers
   public class VaultsController : ControllerBase
   {
     private readonly VaultsService _vaultsService;
+    private readonly AccountService _accountService;
 
-    public VaultsController(VaultsService vaultsService)
+    public VaultsController(VaultsService vaultsService, AccountService accountService)
     {
       _vaultsService = vaultsService;
+      _accountService = accountService;
     }
     // -----------------------------------------------------------------------------------------------------
     [HttpPost]
-
-    public ActionResult<Vault> Create([FromBody] Vault newVault)
+    [Authorize]
+    public async Task<ActionResult<Vault>> Create([FromBody] Vault newVault)
     {
       try
       {
-        // newVault.CreatorId = "fixthis later";
-        Vault vaults = _vaultsService.Create(newVault);
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        // Account fullAccount = _accountService.GetOrCreateAccount(userInfo);
+        newVault.CreatorId = userInfo.Id;
 
+        Vault keeps = _vaultsService.Create(newVault);
+        //TODO[epic=Populate] adds the account to the new object as the creator
+        vaults.Creator = userInfo;
         return Ok(vaults);
       }
       catch (Exception e)

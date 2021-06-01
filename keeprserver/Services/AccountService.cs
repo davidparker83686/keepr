@@ -34,6 +34,17 @@ namespace keepr.Services
       }
       return profile;
     }
+
+    internal Account GetOrCreateAccount(Account userInfo)
+    {
+      Account account = _repo.GetById(userInfo.Id);
+      if (account == null)
+      {
+        return _repo.Create(userInfo);
+      }
+      return account;
+    }
+
     // ________________________________________________________________________________________________________________________________________________
 
     internal Profile GetProfileById(string id)
