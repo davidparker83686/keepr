@@ -58,7 +58,7 @@ import { AppState } from '../AppState'
 import { useRoute } from 'vue-router'
 import { accountService } from '../services/AccountService'
 import { keepsService } from '../services/KeepsService'
-import { vaultService } from '../services/VaultService'
+import { vaultsService } from '../services/VaultsService'
 import NewKeepModal from '../components/NewKeepModal.vue'
 export default {
   components: { NewKeepModal },
@@ -81,7 +81,7 @@ export default {
           await accountService.getActive(route.params.id)
         }
         await keepsService.getKeepsByUserId(route.params.id)
-        await vaultService.getVaultsByUserId(route.params.id)
+        await vaultsService.getVaultsByUserId(route.params.id)
       } catch (error) {
         console.error(error)
       }

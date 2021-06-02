@@ -78,7 +78,7 @@
 
 <script>
 import { reactive, computed } from 'vue'
-import { vaultsService } from '../services/VaultService'
+import { vaultsService } from '../services/VaultsService'
 import $ from 'jquery'
 import { AppState } from '../AppState'
 // import { accountService } from '../services/AccountService'

@@ -18,13 +18,13 @@ export default {
   name: 'Home',
   setup() {
     const state = reactive({
-      keep: computed(() => AppState.keeps),
+      keeps: computed(() => AppState.keeps),
       account: computed(() => AppState.account),
       user: computed(() => AppState.user)
     })
     onMounted(async() => {
       try {
-        debugger
+        // debugger
         await keepsService.getAllKeeps()
       } catch (error) {
         console.error(error)
