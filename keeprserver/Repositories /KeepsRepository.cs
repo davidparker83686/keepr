@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Dapper;
 using keepr.Models;
 
@@ -28,14 +29,6 @@ namespace keepr.Repositories_
       // return _db.Query<Keep>(sql);
       return _db.Query<Keep>(sql, new { id });
     }
-
-
-
-
-
-
-
-
     // -----------------------------------------------------------------------------------------------------
     public Keep Create(Keep newKeep)
     {
@@ -50,10 +43,40 @@ namespace keepr.Repositories_
       return newKeep;
     }
     // -----------------------------------------------------------------------------------------------------
+    // public Keep GetById(int id)
+    // {
+    //   string sql = "SELECT * FROM keeps WHERE id =@id;";
+    //   return _db.QueryFirstOrDefault<Keep>(sql, new { id });
+    // }
+    // public Keep GetById(int id)
+    // {
+    //   string sql = "SELECT * FROM keeps JOIN accounts a ON k.creatorId = id WHERE id =accounts.id;";
+    //   // return _db.QueryFirstOrDefault<Keep>(sql, new { id });
+    //   return _db.Query<Keep, Account, Keep>(sql, (keep, account) =>
+    //   {
+    //     keep.Creator = account;
+    //     return keep;
+    //   }
+    //   , new { id }, splitOn: "id").FirstOrDefault();
+    // }
+
+
+
     public Keep GetById(int id)
     {
-      string sql = "SELECT * FROM keeps WHERE id =@id;";
-      return _db.QueryFirstOrDefault<Keep>(sql, new { id });
+      string sql = @"
+      SELECT 
+        k.*,
+        a.* 
+      FROM keeps k
+      JOIN accounts a ON k.creatorId = a.id
+      WHERE k.id = @id";
+      return _db.Query<Keep, Account, Keep>(sql, (keep, account) =>
+      {
+        keep.Creator = account;
+        return keep;
+      }
+      , new { id }, splitOn: "id").FirstOrDefault();
     }
     // -----------------------------------------------------------------------------------------------------
     internal bool Update(Keep original)

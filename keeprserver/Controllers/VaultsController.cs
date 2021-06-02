@@ -78,12 +78,32 @@ namespace keepr.Controllers
     }
     // -----------------------------------------------------------------------------------------------------
 
+    // [HttpGet("{id}")]
+    // public ActionResult<Vault> GetById(int id)
+    // {
+    //   try
+    //   {
+
+    //     Vault vaults = _vaultsService.GetById(id);
+    //     return Ok(vaults);
+    //   }
+    //   catch (Exception e)
+    //   {
+    //     return BadRequest(e.Message);
+    //   }
+    // }
+
     [HttpGet("{id}")]
-    public ActionResult<Vault> GetById(int id)
+    public async Task<ActionResult<Vault>> GetByIdAsync(int id)
     {
       try
       {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
         Vault vaults = _vaultsService.GetById(id);
+        if (vaults.IsPrivate == true && vaults.CreatorId != userInfo.Id)
+        {
+          throw new Exception("This vault is private");
+        }
         return Ok(vaults);
       }
       catch (Exception e)
@@ -93,8 +113,32 @@ namespace keepr.Controllers
     }
 
     // -----------------------------------------------------------------------------------------------------
+    [HttpGet("{id}/keeps")]
+    public async Task<ActionResult<IEnumerable<VaultKeepViewModel>>> GetKeepByVaultAsync(int id)
+    {
+      try
+      {
+
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        Vault vaults = _vaultsService.GetById(id);
+        if (vaults.IsPrivate == true && vaults.CreatorId != userInfo.Id)
+        {
+          throw new Exception("This vault is private");
+        }
+
+
+
+        IEnumerable<Keep> keeps = _vaultsService.GetKeepByVault(id);
+        return Ok(keeps);
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+    // -----------------------------------------------------------------------------------------------------
     [HttpPut("{id}")]
-    // [Authorize]
+    [Authorize]
     public ActionResult<Vault> Update(int id, [FromBody] Vault update)
     {
       try
@@ -102,19 +146,6 @@ namespace keepr.Controllers
         update.Id = id;
         Vault updated = _vaultsService.Update(update);
         return Ok(updated);
-      }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      }
-    }
-    [HttpGet("{id}/keeps")]
-    public ActionResult<IEnumerable<VaultKeepViewModel>> GetKeepByVault(int id)
-    {
-      try
-      {
-        IEnumerable<Keep> keeps = _vaultsService.GetKeepByVault(id);
-        return Ok(keeps);
       }
       catch (Exception e)
       {

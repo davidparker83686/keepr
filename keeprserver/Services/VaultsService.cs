@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using keepr.Models;
 using keepr.Repositories_;
 
@@ -46,9 +47,30 @@ namespace keepr.Services
       }
       return (Vault)vault;
     }
+    // internal void Delete(int id, string creatorId)
+    // {
+    //   Car car = GetById(id);
+    //   if (car.CreatorId != creatorId)
+    //   {
+    //     throw new Exception("You cannot delete another users Car");
+    //   }
+    //   if (!_repo.Delete(id))
+    //   {
+    //     throw new Exception("Something has gone terribly wrong");
+    //   };
+
+
     // -----------------------------------------------------------------------------------------------------
-    internal IEnumerable<Vault> GetVaultByProfile(string id)
+    // internal IEnumerable<Vault> GetVaultByProfile(string id)
+    // {
+    //   return _vaultsRepository.GetVaultByProfile(id);
+    // }
+    internal IEnumerable<Vault> GetVaultByProfile(string id, Account userInfo)
     {
+      if (id != userInfo.Id)
+      {
+        return _vaultsRepository.GetVaultByProfile(id).ToList().FindAll(v => v.IsPrivate == false);
+      }
       return _vaultsRepository.GetVaultByProfile(id);
     }
     // -----------------------------------------------------------------------------------------------------
@@ -61,6 +83,11 @@ namespace keepr.Services
         throw new Exception("Something has gone terribly wrong");
       }
     }
+
+    // internal Vault GetById(string id)
+    // {
+    //   throw new NotImplementedException();
+    // }
 
 
 

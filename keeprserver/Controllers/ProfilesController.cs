@@ -26,8 +26,22 @@ namespace keepr.Controllers
       _vaultKeepsService = vaultKeepsService;
     }
     // -----------------------------------------------------------------------------------------------------
+    [HttpGet("{id}")]
+    public ActionResult<Profile> GetProfile(string id)
+    {
+      try
+      {
+        Profile profile = _accountService.GetProfileById(id);
+        return Ok(profile);
+      }
+      catch (System.Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+    // -----------------------------------------------------------------------------------------------------
     [HttpGet]
-    [Authorize]
+    // [Authorize]
     public async Task<ActionResult<Account>> Get()
     {
       try
@@ -56,11 +70,13 @@ namespace keepr.Controllers
     }
     // -----------------------------------------------------------------------------------------------------
     [HttpGet("{id}/vaults")]
-    public ActionResult<IEnumerable<Vault>> GetVaultByProfile(string id)
+    public async Task<ActionResult<IEnumerable<Vault>>> GetVaultByProfileAsync(string id)
     {
       try
       {
-        IEnumerable<Vault> vaults = _vaultsService.GetVaultByProfile(id);
+
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        IEnumerable<Vault> vaults = _vaultsService.GetVaultByProfile(id, userInfo);
         return Ok(vaults);
       }
       catch (Exception e)
