@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Dapper;
 using keepr.Models;
 
@@ -54,6 +55,7 @@ namespace keepr.Repositories_
       return affectedRows == 1;
     }
 
+    // -----------------------------------------------------------------------------------------------------
 
     internal IEnumerable<Vault> GetVaultByProfile(string id)
     {

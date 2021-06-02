@@ -76,7 +76,8 @@ namespace keepr.Controllers
       {
 
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        IEnumerable<Vault> vaults = _vaultsService.GetVaultByProfile(id, userInfo);
+        // were passing userinfo as string because if null will fail and the userinfo? is checking if theres anythign there like a v-if
+        IEnumerable<Vault> vaults = _vaultsService.GetVaultByProfile(id, userInfo?.Id);
         return Ok(vaults);
       }
       catch (Exception e)

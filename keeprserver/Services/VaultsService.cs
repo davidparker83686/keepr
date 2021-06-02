@@ -65,9 +65,9 @@ namespace keepr.Services
     // {
     //   return _vaultsRepository.GetVaultByProfile(id);
     // }
-    internal IEnumerable<Vault> GetVaultByProfile(string id, Account userInfo)
+    internal IEnumerable<Vault> GetVaultByProfile(string id, string userId)
     {
-      if (id != userInfo.Id)
+      if (id != userId)
       {
         return _vaultsRepository.GetVaultByProfile(id).ToList().FindAll(v => v.IsPrivate == false);
       }
