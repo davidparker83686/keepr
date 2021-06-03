@@ -1,8 +1,7 @@
 <template>
   <div class="home container-fluid">
-    hello world
     <div class="row">
-      <div class="col">
+      <div class="col m-5">
         <Keep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />
       </div>
     </div>

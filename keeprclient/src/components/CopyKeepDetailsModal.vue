@@ -52,7 +52,10 @@
                     AddToVault
                   </button>
                   <div class="dropdown-menu clickable" aria-labelledby="dropdownMenuButton">
-                    <div class="dropdown-item clickable" href="#" v-for="vault in state.vaults" :key="vault.id" @click="addToVault(vault.id)">
+                    <div class="dropdown-item clickable" href="#" v-for="vault in state.vaults" :key="vault.id" @click="createVaultKeep(vault.id)">
+                      <span>
+                        hi
+                      </span>
                       {{ vault.name }}
                     </div>
                   </div>
@@ -86,9 +89,9 @@
 </template>
 
 <script>
-import { reactive, computed, onMounted } from 'vue'
+import { reactive, computed } from 'vue'
 import { keepsService } from '../services/KeepsService'
-import { vaultsService } from '../services/VaultsService'
+// import { vaultsService } from '../services/VaultsService'
 import Notification from '../utils/Notification'
 // import $ from 'jquery'
 import { AppState } from '../AppState'
@@ -108,19 +111,20 @@ export default {
   },
   setup(props) {
     const state = reactive({
-      // keeps: computed(() => AppState.keeps),
+      keeps: computed(() => AppState.keeps),
       account: computed(() => AppState.account),
       user: computed(() => AppState.user),
       activeKeep: computed(() => AppState.activeKeep),
+      // vaults: computed(() => AppState.vaults),
       vaults: computed(() => AppState.vaults)
     })
-    onMounted(async() => {
-      try {
-        await vaultsService.getVaultsByUserId(state.account.id)
-      } catch (error) {
-        logger.error(error)
-      }
-    })
+    // onMounted(async() => {
+    //   try {
+    //     await vaultsService.getVaultsByUserId(state.account.id)
+    //   } catch (error) {
+    //     logger.error(error)
+    //   }
+    // })
     return {
       state,
       async deleteKeep(id) {
@@ -134,9 +138,9 @@ export default {
           logger.error(error)
         }
       },
-      async addToVault(id) {
+      async createVaultKeep(id) {
         try {
-          await keepsService.addToVault(id)
+          await keepsService.createVaultKeep(id, state.activeKeep.id)
           state.activeKeep = {}
           '#copyKeepDetailsModal'.modal('hide')
         } catch (error) {

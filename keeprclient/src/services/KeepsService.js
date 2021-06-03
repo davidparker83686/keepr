@@ -35,6 +35,13 @@ class KeepsService {
     keep.views = keep.views + 1
     AppState.keeps[viewedKeep] = keep
   }
+
+  async addToVault(id1, id2) {
+    const newVaultKeep = await api.get(`api/keeps/${id1}`)
+    const res = await api.post('api/vaultkeeps', newVaultKeep)
+    res.vaultId = id2
+    AppState.vaultkeeps.push(res.data)
+  }
 }
 
 export const keepsService = new KeepsService()

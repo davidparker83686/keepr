@@ -1,11 +1,11 @@
+##Create and Delete Vaults
 ##All deletes require confirmation
 ###Create and Delete Keeps
 ####Visitors can see all keeps (login not required)
 ####Users can Register, login and automatically authenticated on refresh
-
-
-
 ##All users have a public profile page
+
+
 
 
 All Valid Auth API Tests pass
@@ -30,10 +30,8 @@ From the vault page if the user is the creator they can remove keeps from the va
 Anytime a keep is kept in a vault the keep count is incremented
 
 
-Create and Delete Vaults
 
 Users can only Delete things they created
-
 
 Add keeps to vaults
 

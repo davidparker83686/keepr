@@ -3,8 +3,9 @@
     <!-- Profile info -->
     <div class="row">
       <div class="col-12">
-        hello
-        {{ state.activeVault.name }}
+        <h3>
+          {{ state.activeVault.name }}
+        </h3>
         <!-- <div v-if="state.activeVault.creatorId== state.account.id"> -->
         <button type="button" title="Delete Vault" aria-label="Delete Vault" class="btn btn-none text-danger" @click="deleteVault(state.activeVault.id)">
           <i class="fas fa-trash-alt"></i>
