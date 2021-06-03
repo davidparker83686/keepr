@@ -16,15 +16,20 @@ const routes = [
     name: 'About',
     component: loadPage('AboutPage')
   },
+  // {
+  //   path: '/profiles/:id',
+  //   name: 'Profiles',
+  //   component: loadPage('ProfilesPage')
+  // },
   {
-    path: '/profile/:id',
-    name: 'Profile',
-    component: loadPage('ProfilePage')
+    path: '/profiles/:id',
+    name: 'Profiles',
+    component: loadPage('ProfilesPage')
   },
   {
-    path: '/vault/:id',
-    name: 'Vault',
-    component: loadPage('VaultPage')
+    path: '/vaults/:id',
+    name: 'Vaults',
+    component: loadPage('VaultsPage')
   },
   {
     path: '/account',

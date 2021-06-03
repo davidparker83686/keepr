@@ -18,8 +18,18 @@ namespace keepr.Repositories_
     // -----------------------------------------------------------------------------------------------------
     public IEnumerable<Keep> GetAll()
     {
-      string sql = "SELECT * FROM keeps";
-      return _db.Query<Keep>(sql);
+      string sql = @"
+      SELECT
+        k.*,
+        a.*
+      FROM keeps k
+      JOIN accounts a ON k.creatorId = a.id;";
+      return _db.Query<Keep, Account, Keep>(sql, (keep, account) =>
+{
+  keep.Creator = account;
+  return keep;
+}
+, splitOn: "id");
     }
     // -----------------------------------------------------------------------------------------------------
     internal IEnumerable<Keep> GetKeepByProfile(string id)

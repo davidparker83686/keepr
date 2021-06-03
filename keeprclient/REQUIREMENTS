@@ -1,26 +1,54 @@
+##All deletes require confirmation
+###Create and Delete Keeps
+####Visitors can see all keeps (login not required)
+####Users can Register, login and automatically authenticated on refresh
 
 
 
+##All users have a public profile page
 
 
-Visitors can see all keeps (login not required)
-Keep cards are displayed in accordance to mock
-Cards follow a mansonry layout (bootstrap card columns OR masonry)
-Clicking on a keep card opens the keep in a modal which adheres to mock
-All users have a public profile page
-The profile page adheres to mock
-Each vault has its own route where users can view all of the keeps in the vault
-On the vault page, if the vault is private and not the active users the request fails
-From the vault page if the user is the creator they can remove keeps from the vault
-Anytime a keep is kept in a vault the keep count is incremented
-Users can Register, login and automatically authenticated on refresh
-Create and Delete Keeps
-Create and Delete Vaults
-Users can only Delete things they created
-All deletes require confirmation
-Add keeps to vaults
-Remove keeps from vaults
 All Valid Auth API Tests pass
 All No Auth API Tests pass
-All Invalid Auth API Tests pass
+
+
+
 UI adheres to all phases of CodeWorks Design Requirements
+Keep cards are displayed in accordance to mock
+The profile page adheres to mock
+Clicking on a keep card opens the keep in a modal which adheres to mock
+
+
+Cards follow a mansonry layout (bootstrap card columns OR masonry)
+
+
+Each vault has its own route where users can view all of the keeps in the vault
+
+On the vault page, if the vault is private and not the active users the request fails
+
+From the vault page if the user is the creator they can remove keeps from the vault
+Anytime a keep is kept in a vault the keep count is incremented
+
+
+Create and Delete Vaults
+
+Users can only Delete things they created
+
+
+Add keeps to vaults
+
+Remove keeps from vaults
+
+
+
+
+
+
+
+All Invalid Auth API Tests pass
+
+
+
+
+
+test vault keeps sql statment in setup and tst it with teh id that post man i using the way we did with harrison. 

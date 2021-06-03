@@ -1,13 +1,18 @@
 <template>
-  <div>
-    <button type="button" class="btn btn-info" data-toggle="modal" :data-target="'#keepDetailsModal'+ keep.id">
-      <div class="row  justify-content-between">
-        {{ keep.name }}
-        <!-- {{ keep.creator.picture }}
-        {{ keep.img }} -->
+  <div class="position-relative" style="max-width:20vw;">
+    <button type="button" class="btn btn-none shadow-none" data-toggle="modal" data-target="#copyKeepDetailsModal">
+      <div class="row  justify-content-between" @click="activeKeep(keep)">
+        <div class="col-10 d-flex justify-content-between" v-if="keep.creator">
+          <h4 class="position-absolute m-2">
+            {{ keep.name }}
+          </h4>
+          <img :src="keep.creator.picture " class="m-2 rounded-circle small-img position-absolute" alt="">
+        </div>
+        <img :src="keep.img" class="img-fluid" alt="">
       </div>
     </button>
-    <KeepDetailsModal :keep-prop="keep" />
+    <!-- <KeepDetailsModal :keep-prop="keep" /> -->
+    <CopyKeepDetailsModal />
   </div>
   <!-- @click="addView()" -->
 </template>
@@ -34,6 +39,13 @@ export default {
     })
     return {
       state,
+      async activeKeep(keep) {
+        try {
+          await keepsService.activeKeep(keep)
+        } catch (error) {
+          console.error(error)
+        }
+      },
       async addView() {
         try {
           await keepsService.addView()
@@ -41,6 +53,16 @@ export default {
           console.error(error)
         }
       }
+      // async getUserRating() {
+      //   const totalReviews = keep.img
+      //   let sumOfReviews = 0
+      //   state.reviews.forEach(r => {
+      //     sumOfReviews += r.rating
+      //   })
+      //   const userRating = sumOfReviews / totalReviews
+      //   return Math.round(userRating)
+      //   // return userRating
+      // }
     }
   }
 }
@@ -82,4 +104,12 @@ a:hover {
 justify-content: space-around;
   }
 } */
+
+ img{
+   width: 100%
+ }
+ .small-img{
+   width: 1em;
+   left: 0;
+   top: 5px}
 </style>

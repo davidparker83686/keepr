@@ -1,22 +1,27 @@
 <template>
-  <div class="profile container-fluid">
+  <div class="profilesPage container-fluid m-md-5">
     <!-- Profile info -->
     <div class="row">
-      <div class="col">
-        {{ state.activeAccount.picture }}
+      <div class="col-md-3 ">
+        <img :src="state.account.picture" class=" imgsize" alt="Profile Pic">
+        <!-- {{ state.account.picture }} -->
       </div>
-      <div class="col">
-        {{ state.activeAccount.name }}
-        <span>Vaults: </span>
-        <span>Keepss: </span>
+      <div class="col-md-8 p-0">
+        <span class="biggest-font-size" v-if="state.account">
+          <!-- {{ state.account .name.toUpperCase() }} -->
+        </span>
+        <br>
+        <span class="smallest-font-size">Vaults:{{ getUserVaults() }} </span>
+        <br>
+        <span class="smallest-font-size">Keeps:{{ getUserKeeps() }} </span>
       </div>
     </div>
     <!-- Vaults -->
     <div class="row">
-      <div class="col-12">
-        <span>Vaults</span>
+      <div class="col-12 mt-md-5">
+        <span class="middle-font-size">Vaults</span>
         <button type="button"
-                class="btn btn-none text-success"
+                class="btn btn-none shadow-none text-success"
                 data-toggle="modal"
                 title="Create Vault"
                 aria="Create Vault"
@@ -27,14 +32,15 @@
       </div>
       <div class="col">
         <Vault v-for="vault in state.vaults" :key="vault.id" :vault="vault" />
+        <!-- <Keep  v-for="keep in state.keeps" :key="keep.id" :keep="keep" /> -->
       </div>
     </div>
     <!-- Keeps -->
     <div class="row">
       <div class="col-12">
-        <span>Keeps</span>
+        <span class="middle-font-size">Keeps</span>
         <button type="button"
-                class="btn btn-none text-success"
+                class="btn btn-none shadow-none text-success"
                 title="Create Keep"
                 aria="Create Vault"
                 data-toggle="modal"
@@ -56,18 +62,18 @@
 import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { useRoute } from 'vue-router'
-import { accountService } from '../services/AccountService'
+// import { accountService } from '../services/AccountService'
 import { keepsService } from '../services/KeepsService'
 import { vaultsService } from '../services/VaultsService'
 import NewKeepModal from '../components/NewKeepModal.vue'
 export default {
   components: { NewKeepModal },
-  name: 'Profile',
+  name: 'Profiles',
   setup() {
     const route = useRoute()
     const state = reactive({
-      keep: computed(() => AppState.keeps),
-      vault: computed(() => AppState.vaults),
+      keeps: computed(() => AppState.keeps),
+      vaults: computed(() => AppState.vaults),
       activeAccount: computed(() => AppState.activeAccount),
       account: computed(() => AppState.account),
       user: computed(() => AppState.user)
@@ -77,9 +83,9 @@ export default {
     // })
     onMounted(async() => {
       try {
-        if (!state.loading) {
-          await accountService.getActive(route.params.id)
-        }
+        // if (!state.loading) {
+        //   await accountService.getActive(route.params.id)
+        // }
         await keepsService.getKeepsByUserId(route.params.id)
         await vaultsService.getVaultsByUserId(route.params.id)
       } catch (error) {
@@ -89,7 +95,15 @@ export default {
 
     return {
       state,
-      route
+      route,
+      getUserKeeps() {
+        const totalKeeps = state.keeps.length
+        return totalKeeps
+      },
+      getUserVaults() {
+        const totalVaults = state.vaults.length
+        return totalVaults
+      }
 
     }
   }
@@ -97,7 +111,20 @@ export default {
 </script>
 
 <style scoped>
-img {
+/* img {
   max-width: 100px;
+} */
+.imgsize {
+  min-width: 15rem;
+  height: auto;
+}
+.biggest-font-size{
+  font-size: 3rem;
+}
+.middle-font-size{
+font-size: 2rem;
+}
+.smallest-font-size{
+  font-size: 2rem;
 }
 </style>

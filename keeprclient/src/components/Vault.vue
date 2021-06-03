@@ -1,20 +1,22 @@
 <template>
   <div>
-    <button type="button" class="btn">
-      <router-link style="color: inherit;" :to="{name: 'Profile', params: {id: vault.creatorId}}">
+    <div class="card cardbg" style="max-width:10vw;">
+      <router-link style="color: inherit;" :to="{name: 'Vaults', params: {id: vault.id}}" @click="activeVault(vault)">
         <div class="row justify-content-between">
-          {{ vault.name }}
-          {{ vault.img }}
+          <span>
+            {{ vault.name }}
+          </span>
+          <img :src="vault.img " alt="Vault Image">
         </div>
       </router-link>
-    </button>
+    </div>
   </div>
 </template>
 
 <script>
 import { reactive, computed } from 'vue'
 import { AppState } from '../AppState'
-// import { vaultsService } from '../services/vaultsService'
+import { vaultsService } from '../services/VaultsService'
 // import { logger } from '../utils/Logger'
 // import Notification from '../utils/Notification'
 export default {
@@ -29,10 +31,17 @@ export default {
     const state = reactive({
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
-      vault: computed(() => AppState.vaults)
+      vaults: computed(() => AppState.vaults)
     })
     return {
-      state
+      state,
+      async activeVault(vault) {
+        try {
+          await vaultsService.activeVault(vault)
+        } catch (error) {
+          console.error(error)
+        }
+      }
     }
   }
 }
@@ -73,5 +82,8 @@ a:hover {
   .userbuttons{
 justify-content: space-around;
   }
+} */
+/* .cardbg{
+  :background-image: vault.img;
 } */
 </style>

@@ -36,8 +36,19 @@ namespace keepr.Repositories_
     // -----------------------------------------------------------------------------------------------------
     public Vault GetById(int id)
     {
-      string sql = "SELECT * FROM vaults WHERE id =@id;";
-      return _db.QueryFirstOrDefault<Vault>(sql, new { id });
+      string sql = @"
+      SELECT 
+      v.*,
+      a.*
+      FROM vaults v
+      JOIN accounts a ON v.creatorId = a.id
+       WHERE v.id =@id;";
+      return _db.Query<Vault, Account, Vault>(sql, (vault, account) =>
+    {
+      vault.Creator = account;
+      return vault;
+    }
+    , new { id }, splitOn: "id").FirstOrDefault();
     }
     // -----------------------------------------------------------------------------------------------------
     internal bool Update(Vault original)
@@ -49,7 +60,7 @@ namespace keepr.Repositories_
         img = @Img,
         description = @Description,
         isPrivate = @IsPrivate
-      WHERE id = @Id
+        WHERE id = @Id
       ";
       int affectedRows = _db.Execute(sql, original);
       return affectedRows == 1;
@@ -57,9 +68,14 @@ namespace keepr.Repositories_
 
     // -----------------------------------------------------------------------------------------------------
 
+    // internal IEnumerable<Vault> GetVaultByProfile(string id)
+    // {
+    //   string sql = "SELECT * FROM vaults WHERE creatorId = @id;";
+    //   return _db.Query<Vault>(sql, new { id });
+    // }
     internal IEnumerable<Vault> GetVaultByProfile(string id)
     {
-      string sql = "SELECT * FROM vaults WHERE creatorId = @id;";
+      string sql = @"SELECT * FROM vaults WHERE creatorId = @id;";
       return _db.Query<Vault>(sql, new { id });
     }
 

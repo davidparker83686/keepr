@@ -17,14 +17,14 @@
           <div class="modal-body">
             <form @submit.prevent="createVault">
               <div class="form-group">
-                <label for="title">Title</label>
+                <label for="name">Title</label>
                 <input type="text"
                        class="form-control"
-                       id="title"
+                       id="name"
                        placeholder="Title..."
                        minlength="3"
                        maxlength="50"
-                       v-model="state.newVault.title"
+                       v-model="state.newVault.name"
                        required
                 >
               </div>

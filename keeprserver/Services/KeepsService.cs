@@ -34,6 +34,8 @@ namespace keepr.Services
     {
       Keep keeps = _keepsRepository.Create(newKeep);
       return keeps;
+
+      // return _db.ExecuteScalar<int>(sql, newKeep);
     }
     // -----------------------------------------------------------------------------------------------------
     internal Keep GetById(int id)
