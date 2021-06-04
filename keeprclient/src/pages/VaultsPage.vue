@@ -25,7 +25,9 @@
   </div>
   <div class="row">
     <div class="col-12 " v-if="keeps">
-      <Keep v-for="keep in state.vaultkeeps" :key="keep.id" :keep="keep" />
+      <div class="card-columns">
+        <Keep v-for="keep in state.vaultkeeps" :key="keep.id" :keep="keep" />
+      </div>
     </div>
   </div>
   <!-- </div> -->

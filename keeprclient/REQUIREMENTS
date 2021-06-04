@@ -1,5 +1,6 @@
 test vault keeps sql statment in setup and tst it with teh id that post man i using the way we did with harrison. 
-
+#All Valid Auth API Tests pass(ALMOST THER)
+#All No Auth API Tests pass(ALMOST THERE)
 ###Users can only Delete things they created
 ##Create and Delete Vaults
 ##All deletes require confirmation
@@ -17,8 +18,6 @@ test vault keeps sql statment in setup and tst it with teh id that post man i us
 
 Anytime a keep is kept in a vault the keep count is incremented(need to fix)
 
-#All Valid Auth API Tests pass(ALMOST THER)
-#All No Auth API Tests pass(ALMOST THERE)
 
 
 
