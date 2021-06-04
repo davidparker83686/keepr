@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS vaultkeeps(
   creatorId VARCHAR(255) NOT NULL COMMENT 'FK: User Account',
   vaultId INT NOT NULL COMMENT 'FK: Vault Relationship',
   keepId INT NOT NULL COMMENT 'FK: Keep Relationship',
+  davidId INT NOT NULL COMMENT 'FK: Owner Relationship',
   vaultkeepId INT NOT NULL COMMENT 'FK: Keep Relationship',
   createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
   updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
@@ -42,7 +43,7 @@ CREATE TABLE IF NOT EXISTS vaults(
   updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
-DROP TABLE vaults;
+DROP TABLE vaultkeeps;
 SELECT
   v.*,
   a.*

@@ -19,9 +19,9 @@ namespace keepr.Repositories_
     {
       string sql = @"
       INSERT INTO vaultkeeps
-      (creatorId, vaultId, keepId)
+      (creatorId, vaultId, keepId, davidId)
       VALUES
-      ( @CreatorId, @VaultId, @KeepId);
+      ( @CreatorId, @VaultId, @KeepId, @DavidId);
       SELECT LAST_INSERT_ID();";
 
       newVaultKeep.Id = _db.ExecuteScalar<int>(sql, newVaultKeep);

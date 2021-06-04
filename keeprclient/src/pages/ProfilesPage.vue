@@ -31,7 +31,7 @@
         </button>
       </div>
       <div class="col-12">
-        <div class="card-columns">
+        <div class="d-inline">
           <Vault v-for="vault in state.accountVaults" :key="vault.id" :vault="vault" />
         </div>
         <!-- <Keep  v-for="keep in state.keeps" :key="keep.id" :keep="keep" /> -->

@@ -1,5 +1,5 @@
 <template>
-  <div class="modal"
+  <div class="modal modal-xlg"
        id="copyKeepDetailsModal"
        tabindex="-1"
        role="dialog"
@@ -8,7 +8,7 @@
        style="min-width:80vw;"
   >
     <!-- :id="'keepDetailsModal'+ keepProp.id" -->
-    <div class="modal-dialog col" role="document">
+    <div class="modal-dialog modal-xlg col" role="document">
       <div class=" modal-content minview ">
         <!-- ________________________________________________________________________________________________________ -->
 
@@ -51,7 +51,7 @@
             <div class="row justify-content-around">
               <div class="col-5 text-left">
                 <div class="dropdown  d-flex justify-content-center mb-2" v-if="state.usersVaults.length >0">
-                  <button class="btn drop btn-outline-success dropdown-togglen w-100 mt-1 mb-2 mx-2"
+                  <button class="btn drop btn-success dropdown-togglen w-100 mt-1 mb-2 mx-2"
                           type="button"
                           id="dropdownMenuButton"
                           data-toggle="dropdown"
@@ -91,7 +91,7 @@
                 <!-- ________________________________________________________________________________________________________ -->
                 <div v-if="state.activeKeep.creatorId == state.account.id">
                   <button type="button"
-                          class="btn btn-outline-danger"
+                          class="btn btn-outline-none shadow-none text-danger"
                           title="Delete Keep"
                           aria-label="Delete Keep"
                           @click="deleteKeep(state.activeKeep.id)"
@@ -171,7 +171,7 @@ export default {
       },
       async createVaultKeep(id) {
         try {
-          await keepsService.createVaultKeep(id, state.activeKeep.id)
+          await keepsService.createVaultKeep(id, state.activeKeep.id, state.account.id)
           await keepsService.addKeepKeepCount(state.activeKeep.id)
           state.activeKeep = {}
         } catch (error) {

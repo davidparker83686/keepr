@@ -43,22 +43,6 @@ namespace keepr.Controllers
       }
     }
     // -----------------------------------------------------------------------------------------------------
-    [HttpDelete("{id}")]
-    [Authorize]
-    public async Task<ActionResult<Keep>> Delete(int id)
-    {
-      try
-      {
-        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        _keepsService.Delete(id, userInfo.Id);
-        return Ok("Deleted");
-      }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      }
-    }
-    // -----------------------------------------------------------------------------------------------------
     [HttpGet]
     public ActionResult<IEnumerable<Keep>> Get()
     {
@@ -95,7 +79,7 @@ namespace keepr.Controllers
       {
         update.Id = id;
         Keep updated = _keepsService.Update(update);
-        return Ok(updated);
+        return Ok("updated");
       }
       catch (Exception e)
       {
@@ -103,5 +87,21 @@ namespace keepr.Controllers
       }
     }
 
+    // -----------------------------------------------------------------------------------------------------
+    [HttpDelete("{id}")]
+    [Authorize]
+    public async Task<ActionResult<Keep>> Delete(int id)
+    {
+      try
+      {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        _keepsService.Delete(id, userInfo.Id);
+        return Ok("Deleted");
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
   }
 }

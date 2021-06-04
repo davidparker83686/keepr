@@ -35,6 +35,11 @@ class KeepsService {
     AppState.activeKeep = {}
   }
 
+  async deleteVaultKeep(id) {
+    await api.delete(`api/vaultkeeps/${id}`)
+    AppState.vaultKeeps = AppState.vaultKeeps.filter(i => i.id !== id)
+  }
+
   async activeKeep(keep) {
     AppState.activeKeep = keep
 
@@ -45,20 +50,20 @@ class KeepsService {
   }
 
   async addKeepKeepCount(id) {
+    debugger
     const keep = await api.get(`api/keeps/${id}`)
-    await api.put('api/keeps/' + id, keep)
-
-    keep.keeps = keep.keeps + 1
-    return keep
+    keep.data.keeps = keep.data.keeps + 1
+    await api.put('api/keeps/' + id, keep.data)
+    this.getAllKeeps()
 
     // const keepAt = AppState.keeps.findIndex(k => k.id === activeKeep.id)
     // AppState.keeps[keepAt] = activeKeep
   }
 
-  async createVaultKeep(vId, kId) {
+  async createVaultKeep(vId, kId, aId) {
     // const newVaultKeep = await api.get(`api/keeps/${kId}`)
 
-    const newVaultKeep = { vaultId: vId, keepId: kId }
+    const newVaultKeep = { vaultId: vId, keepId: kId, davidId: aId }
 
     const res = await api.post('api/vaultkeeps', newVaultKeep)
 

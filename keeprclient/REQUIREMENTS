@@ -1,33 +1,38 @@
 test vault keeps sql statment in setup and tst it with teh id that post man i using the way we did with harrison. 
 #All Valid Auth API Tests pass(ALMOST THER)
 #All No Auth API Tests pass(ALMOST THERE)
+Anytime a keep is kept in a vault the keep count is incremented(need to fix)
 ###Users can only Delete things they created
 ##Create and Delete Vaults
 ##All deletes require confirmation
 ###Create and Delete Keeps
+#Each vault has its own route where users can view all of the keeps in the vault(ALMOST THERE)
 ####Visitors can see all keeps (login not required)
 ####Cards follow a mansonry layout (bootstrap card columns OR masonry)
 ####Users can Register, login and automatically authenticated on refresh
+####From the vault page if the user is the creator they can remove keeps from the vault Remove keeps from vaults THIS IS A DELETE VAULTKEEP THAT IS USING THE VUALTKEEP ID AS A DELETE IN VUALT SERVICE
 ##All users have a public profile page
 ##Clicking on a keep card opens the keep in a modal which adheres to mock
 ###The profile page adheres to mock
 ###Keep cards are displayed in accordance to mock
+###Add keeps to vaults
+
 
 
 ###########UI adheres to all phases of CodeWorks Design Requirements
 
-Anytime a keep is kept in a vault the keep count is incremented(need to fix)
+###On the vault page, if the vault is private and not the active users the request fails(possibli\y)
 
 
 
 
-#Each vault has its own route where users can view all of the keeps in the vault(ALMOST THERE)
 
-On the vault page, if the vault is private and not the active users the request fails
 
-From the vault page if the user is the creator they can remove keeps from the vault Remove keeps from vaults
 
-Add keeps to vaults
+
+
+
+
 
 
 
