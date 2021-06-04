@@ -36,13 +36,23 @@ class KeepsService {
   }
 
   async activeKeep(keep) {
-    logger.log(keep)
     AppState.activeKeep = keep
 
     await api.put('api/keeps/' + keep.id, keep)
     const viewedKeep = AppState.keeps.findIndex(k => k.id === keep.id)
     keep.views = keep.views + 1
     AppState.keeps[viewedKeep] = keep
+  }
+
+  async addKeepKeepCount(id) {
+    const keep = await api.get(`api/keeps/${id}`)
+    await api.put('api/keeps/' + id, keep)
+
+    keep.keeps = keep.keeps + 1
+    return keep
+
+    // const keepAt = AppState.keeps.findIndex(k => k.id === activeKeep.id)
+    // AppState.keeps[keepAt] = activeKeep
   }
 
   async createVaultKeep(vId, kId) {
@@ -55,14 +65,6 @@ class KeepsService {
     AppState.vaultKeeps.push(res.data)
     Notification.toast('Successfully Added to Vault', 'success')
     logger.log(AppState.vaultKeeps)
-  }
-
-  async addKeepKeepCount(id) {
-    const keep = await api.get(`api/keeps/${id}`)
-    keep.keeps = keep.keeps + 1
-    await api.put('api/keeps/' + id, keep)
-    // const keptKeep = AppState.keeps.findIndex(k => k.id === id)
-    // AppState.keeps[keptKeep] = keep
   }
 }
 

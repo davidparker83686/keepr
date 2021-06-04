@@ -66,7 +66,7 @@
                          href="#"
                          v-for="vault in state.usersVaults"
                          :key="vault.id"
-                         @click="createVaultKeep(vault.id)"
+                         @click="createVaultKeep(vault.id) "
                          data-dismiss="modal"
                     >
                       <span>
@@ -178,6 +178,13 @@ export default {
           logger.error(error)
         }
       }
+      // async addKeepKeepCount(activeKeep) {
+      //   try {
+      //     await keepsService.addKeepKeepCount(activeKeep)
+      //   } catch (error) {
+      //     logger.error(error)
+      //   }
+      // }
     }
   },
   components: {}
