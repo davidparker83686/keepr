@@ -46,7 +46,7 @@
                        id="img"
                        placeholder="Image..."
                        minlength="3"
-                       maxlength="50"
+                       maxlength="500"
                        v-model="state.newKeep.img"
                 >
               </div>

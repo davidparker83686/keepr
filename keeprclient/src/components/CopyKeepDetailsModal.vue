@@ -1,5 +1,5 @@
 <template>
-  <div class="modal minview"
+  <div class="modal"
        id="copyKeepDetailsModal"
        tabindex="-1"
        role="dialog"
@@ -8,19 +8,25 @@
        style="min-width:80vw;"
   >
     <!-- :id="'keepDetailsModal'+ keepProp.id" -->
-    <div class="modal-dialog" role="document">
-      <div class=" modal-content">
+    <div class="modal-dialog col" role="document">
+      <div class=" modal-content minview ">
         <!-- ________________________________________________________________________________________________________ -->
 
         <!-- ________________________________________________________________________________________________________ -->
         <div class="row m-0">
-          <div class="col-6 d-inline p-2 m-0">
-            <img :src="state.activeKeep.img " class="img-fluid" alt="Keep Image">
+          <div class="col-12 d-block d-md-none d-flex justify-content-end">
+            <button type="button" class="btn modal-header txtlft btn-none text-danger shadow-none border-bottom-0  " title="close" aria="close" data-dismiss="modal">
+              <i class="fas fa-times"></i>
+            </button>
           </div>
 
-          <div class="col-6  d-inline">
-            <div class="row justify-content-end">
-              <button type="button" class="btn modal-header txtlft btn-none text-danger shadow-none border-bottom-0  " title="close" aria="close" data-dismiss="modal">
+          <div class="col-12 col-md-6 d-inline p-2 m-0 ">
+            <img :src="state.activeKeep.img " class="img-fluid " alt="Keep Image">
+          </div>
+
+          <div class="col-12 col-md-6 d-inline">
+            <div class="row justify-content-end ">
+              <button type="button" class="btn modal-header txtlft btn-none d-none d-md-block text-danger shadow-none border-bottom-0  " title="close" aria="close" data-dismiss="modal">
                 <i class="fas fa-times"></i>
               </button>
             </div>
@@ -44,7 +50,7 @@
             </div>
             <div class="row justify-content-around">
               <div class="col-5 text-left">
-                <div class="dropdown  d-flex justify-content-center mb-2">
+                <div class="dropdown  d-flex justify-content-center mb-2" v-if="state.usersVaults.length >0">
                   <button class="btn drop btn-outline-success dropdown-togglen w-100 mt-1 mb-2 mx-2"
                           type="button"
                           id="dropdownMenuButton"
@@ -56,7 +62,13 @@
                     AddToVault
                   </button>
                   <div class="dropdown-menu clickable" aria-labelledby="dropdownMenuButton">
-                    <div class="dropdown-item clickable" href="#" v-for="vault in state.vaults" :key="vault.id" @click="createVaultKeep(vault.id)">
+                    <div class="dropdown-item clickable"
+                         href="#"
+                         v-for="vault in state.usersVaults"
+                         :key="vault.id"
+                         @click="createVaultKeep(vault.id)"
+                         data-dismiss="modal"
+                    >
                       <span>
                         hi
                       </span>
@@ -71,7 +83,7 @@
 
                 <div v-if="state.activeKeep.creatorId">
                   <!-- <div v-if="state.activeKeep.creatorId != state.account.id"> -->
-                  <router-link style="color: inherit;" :to="{name: 'Profiles', params: {id: state.activeKeep.creatorId}} " @click="makeActiveProfile(state.activeKeep.creatorId)">
+                  <router-link style="color: inherit;" :to="{name: 'Profiles', params: {id: state.activeKeep.creatorId}} " @click="makeActiveProfile(state.activeKeep.creatorId)" data-dismiss="modal">
                     <img class="rounded-circle minipix inline" :src="state.activeKeep.creator.picture" alt="Creator Photo">
                     <span class="inline">{{ (state.activeKeep.creator.name.split('@')[0]) }}</span>
                   </router-link>
@@ -126,6 +138,7 @@ export default {
       account: computed(() => AppState.account),
       user: computed(() => AppState.user),
       activeKeep: computed(() => AppState.activeKeep),
+      usersVaults: computed(() => AppState.usersVaults),
       // vaults: computed(() => AppState.vaults),
       vaults: computed(() => AppState.vaults)
     })
@@ -161,19 +174,10 @@ export default {
           await keepsService.createVaultKeep(id, state.activeKeep.id)
           await keepsService.addKeepKeepCount(state.activeKeep.id)
           state.activeKeep = {}
-          '#copyKeepDetailsModal'.modal('hide')
         } catch (error) {
           logger.error(error)
         }
       }
-      // async getVaultsByUserId(userInfo) {
-      //   try {
-      //     await vaultsService.getVaultsByUserId(userInfo)
-      //   } catch (error) {
-      //     logger.error(error)
-      //   }
-      // }
-
     }
   },
   components: {}
@@ -185,13 +189,14 @@ export default {
 cursor: pointer
 }
 /* .minview{
-  width: 200px
+  min-width: 900px;
+
 } */
 .txtlft{
     text-align: right;
 }
 .minipix{
-  width: 50%
+  width: 25px
 }
 .inline{
     display: inline-block

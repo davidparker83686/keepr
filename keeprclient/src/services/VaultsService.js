@@ -1,18 +1,19 @@
 import { AppState } from '../AppState'
-import { logger } from '../utils/Logger'
-// import { logger } from '../utils/Logger'
+
 import { api } from './AxiosService'
+import Notification from '../utils/Notification'
 
 class VaultsService {
   async createVault(newVault) {
     const res = await api.post('api/vaults', newVault)
     AppState.vaults.push(res.data)
+    Notification.toast('Successfully Created Vault', 'success')
     // this.getVaultsByUserId()
   }
 
   async getVaultsByUserId(id) {
     const res = await api.get(`api/profiles/${id}/vaults`)
-    AppState.vaults = res.data
+    AppState.usersVaults = res.data
     // AppState.accountVaults = res.data
   }
 
@@ -36,15 +37,20 @@ class VaultsService {
     AppState.activeVault = res.data
   }
 
-  async activeVault(vault) {
-    logger.log(vault)
-    await api.get('api/vaults/' + vault.id, vault)
-    AppState.activeVault = vault
+  async activeVault(id) {
+    const res = await api.get(`api/vaults/${id}`)
+    // await api.get('api/vaults/' + vault.id, vault)
+    AppState.activeVault = res
   }
 
   async getKeepsByVaultId(id) {
     const res = await api.get(`api/vaults/${id}/keeps`)
     return res.data
+  }
+
+  async getVaultKeepsById(id) {
+    const res = await api.get(`api/vaults/${id}/keeps`)
+    AppState.vaultKeeps = res.data
   }
 }
 

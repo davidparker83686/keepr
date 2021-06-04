@@ -12,11 +12,11 @@ class AccountService {
     }
   }
 
-  async getActive(id) {
-    const res = await api.get(`api/profile/${id}/active`)
+  // async getActive(id) {
+  //   const res = await api.get(`api/profile/${id}/active`)
 
-    AppState.activeAccount = res.data
-  }
+  //   AppState.activeAccount = res.data
+  // }
 
   async makeActiveProfile(id) {
     const res = await api.get(`api/profiles/${id}`)

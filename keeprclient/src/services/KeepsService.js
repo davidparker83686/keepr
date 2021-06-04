@@ -1,6 +1,7 @@
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
+import Notification from '../utils/Notification'
 // import { vaultsService } from './VaultsService'
 
 class KeepsService {
@@ -13,7 +14,9 @@ class KeepsService {
   async createKeep(newKeep) {
     const res = await api.post('api/keeps', newKeep)
     AppState.keeps.push(res.data)
-    // this.getKeepsByUserId()
+    // const id = newKeep.creatorId
+    Notification.toast('Successfully Created Keep', 'success')
+    // this.getKeepsByProfile(id)
   }
 
   async getKeepsByUserId(id) {
@@ -50,15 +53,16 @@ class KeepsService {
     const res = await api.post('api/vaultkeeps', newVaultKeep)
 
     AppState.vaultKeeps.push(res.data)
+    Notification.toast('Successfully Added to Vault', 'success')
     logger.log(AppState.vaultKeeps)
   }
 
   async addKeepKeepCount(id) {
     const keep = await api.get(`api/keeps/${id}`)
     keep.keeps = keep.keeps + 1
-    // AppState.keeps[keep] = keep
-    const keptKeep = AppState.keeps.findIndex(k => k.id === id)
-    AppState.keeps[keptKeep] = keep
+    await api.put('api/keeps/' + id, keep)
+    // const keptKeep = AppState.keeps.findIndex(k => k.id === id)
+    // AppState.keeps[keptKeep] = keep
   }
 }
 

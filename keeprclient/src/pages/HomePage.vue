@@ -1,10 +1,6 @@
 <template>
   <div class="home container-fluid">
-    <div class="row">
-      <div class="col m-5">
-        <Keep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />
-      </div>
-    </div>
+    <Keep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />
   </div>
 </template>
 
@@ -41,9 +37,40 @@ export default {
 .home{
   text-align: center;
   user-select: none;
-  > img{
-    height: 200px;
-    width: 200px;
+  // > img{
+  //   height: 200px;
+  //   width: 200px;
   }
+  // .container{
+  //   width: 95%;
+  //   margin: 0 auto;
+  // }
+
+.grid{
+  display: flex;
 }
+.grid-col{
+  flex: 1;
+  padding: 0 .1 em;
+}
+
+.grid-col--3{
+display: none;
+}
+.grid-col--4{
+display: none;
+}
+
+@media (min-width: 768px) {
+  // .container{
+  //   width: 90%;
+  // }
+  .grid-col--3{
+display: block;
+}
+.grid-col--4{
+display: block;
+}
+}
+
 </style>

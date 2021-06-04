@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="card cardbg" style="max-width:10vw;">
-      <router-link style="color: inherit;" :to="{name: 'Vaults', params: {id: vault.id}}" @click="activeVault(vault)">
+      <router-link style="color: inherit;" :to="{name: 'Vaults', params: {id: vault.id}}" @click="activeVault(vault.id)">
         <div class="row justify-content-between">
           <span>
             {{ vault.name }}
@@ -35,9 +35,9 @@ export default {
     })
     return {
       state,
-      async activeVault(vault) {
+      async activeVault(id) {
         try {
-          await vaultsService.activeVault(vault)
+          await vaultsService.activeVault(id)
         } catch (error) {
           console.error(error)
         }

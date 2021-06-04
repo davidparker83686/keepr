@@ -13,10 +13,14 @@
 
 
 
+Anytime a keep is kept in a vault the keep count is incremented
 
 
 All Valid Auth API Tests pass
 All No Auth API Tests pass
+
+
+
 
 
 
@@ -31,12 +35,12 @@ Cards follow a mansonry layout (bootstrap card columns OR masonry)
 Each vault has its own route where users can view all of the keeps in the vault
 
 On the vault page, if the vault is private and not the active users the request fails
-From the vault page if the user is the creator they can remove keeps from the vault
 
-Anytime a keep is kept in a vault the keep count is incremented
+From the vault page if the user is the creator they can remove keeps from the vault Remove keeps from vaults
+
 
 Add keeps to vaults
-Remove keeps from vaults
+
 
 
 

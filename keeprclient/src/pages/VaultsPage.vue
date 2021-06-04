@@ -3,15 +3,20 @@
     <!-- Profile info -->
     <div class="row">
       <div class="col-12 m-5">
-        <h3>
+        <h3 class="d-inline">
           {{ state.activeVault.name }}
         </h3>
         <!-- <div v-if="state.activeVault.creatorId== state.account.id"> -->
-        <div v-if="state.activeVault.creatorId == state.account.id">
-          <button type="button" title="Delete Vault" aria-label="Delete Vault" class=" btn-none shadow-none border-none text-danger" @click="deleteVault(state.activeVault.id)">
-            <i class="fas fa-trash-alt"></i>
-          </button>
-        </div>
+
+        <button v-if="state.activeVault.creatorId == state.account.id"
+                type="button"
+                title="Delete Vault"
+                aria-label="Delete Vault"
+                class=" btn mx-3 p-0 d-inline btn-none shadow-none border-none outline-none text-danger"
+                @click="deleteVault(state.activeVault.id)"
+        >
+          <i class="fas fa-trash-alt"></i>
+        </button>
       </div>
     </div>
     <div class="col-12">
@@ -30,7 +35,6 @@
 import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { useRoute, useRouter } from 'vue-router'
-import { accountService } from '../services/AccountService'
 import Notification from '../utils/Notification'
 import { keepsService } from '../services/KeepsService'
 import { vaultsService } from '../services/VaultsService'
@@ -42,6 +46,7 @@ export default {
     const state = reactive({
       // const route = useRoute(),
       keep: computed(() => AppState.keeps),
+      vaultkeeps: computed(() => AppState.vaultKeeps),
       activeVault: computed(() => AppState.activeVault),
       activeAccount: computed(() => AppState.activeAccount),
       accountVaults: computed(() => AppState.accountVaults),
@@ -53,12 +58,11 @@ export default {
     // })
     onMounted(async() => {
       try {
-        if (!state.loading) {
-          await accountService.getActive(route.params.id)
-        }
         await keepsService.getKeepsByUserId(route.params.id)
         await vaultsService.getVaultsByUserId(route.params.id)
         await vaultsService.getVaultById(route.params.id)
+        await vaultsService.getVaultKeepsById(route.params.id)
+        await vaultsService.activeVault(route.params.id)
       } catch (error) {
         console.error(error)
       }
