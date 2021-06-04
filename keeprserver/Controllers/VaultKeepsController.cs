@@ -16,9 +16,11 @@ namespace keepr.Controllers
   public class VaultKeepsController : ControllerBase
   {
     private readonly VaultKeepsService _vaultKeepsService;
+    private readonly VaultsService _vaultsService;
 
-    public VaultKeepsController(VaultKeepsService vaultKeepsService)
+    public VaultKeepsController(VaultKeepsService vaultKeepsService, VaultsService vaultsService)
     {
+      _vaultsService = vaultsService;
       _vaultKeepsService = vaultKeepsService;
     }
     // -----------------------------------------------------------------------------------------------------
@@ -49,9 +51,13 @@ namespace keepr.Controllers
     {
       try
       {
-        // TODO[epic=Auth] Get the user info to set the creatorID
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
-        // safety to make sure an account exists for that user before CREATE-ing stuff.
+        VaultKeep vaultKeeps = _vaultKeepsService.GetById(id);
+        Vault vaults = _vaultsService.GetById(vaultKeeps.VaultId);
+        if (vaults.IsPrivate == true && vaults.CreatorId != userInfo.Id)
+        {
+          throw new Exception("This vault is private");
+        }
         _vaultKeepsService.Delete(id, userInfo.Id);
         return Ok("Deleted");
       }
@@ -60,20 +66,6 @@ namespace keepr.Controllers
         return BadRequest(e.Message);
       }
     }
-    // [HttpGet]
-    // public ActionResult<IEnumerable<VaultKeep>> Get()
-    // {
-    //   try
-    //   {
-    //     IEnumerable<VaultKeep> vaultKeeps = _vaultKeepsService.GetAll();
-    //     // IEnumerable<VaultKeep> vaultKeeps = _vaultKeepsService.GetAll();
-    //     return Ok(vaultKeeps);
-    //   }
-    //   catch (Exception e)
-    //   {
-    //     return BadRequest(e.Message);
-    //   }
-    // }
     // -----------------------------------------------------------------------------------------------------
 
     [HttpGet("{id}")]

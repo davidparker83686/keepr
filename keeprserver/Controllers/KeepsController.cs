@@ -64,6 +64,8 @@ namespace keepr.Controllers
       try
       {
         Keep keeps = _keepsService.GetById(id);
+
+
         return Ok(keeps);
       }
       catch (Exception e)
@@ -73,13 +75,19 @@ namespace keepr.Controllers
     }
     [HttpPut("{id}")]
     [Authorize]
-    public ActionResult<Keep> Update(int id, [FromBody] Keep update)
+    public async Task<ActionResult<Keep>> UpdateAsync(int id, [FromBody] Keep update)
     {
       try
       {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        Keep keeps = _keepsService.GetById(id);
+        if (keeps.CreatorId != userInfo.Id)
+        {
+          throw new Exception("This Keep isnt yours");
+        }
         update.Id = id;
         Keep updated = _keepsService.Update(update);
-        return Ok("updated");
+        return Ok(updated);
       }
       catch (Exception e)
       {
@@ -95,6 +103,11 @@ namespace keepr.Controllers
       try
       {
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        Keep keeps = _keepsService.GetById(id);
+        if (keeps.CreatorId != userInfo.Id)
+        {
+          throw new Exception("This Keep isnt Yours");
+        }
         _keepsService.Delete(id, userInfo.Id);
         return Ok("Deleted");
       }

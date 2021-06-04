@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg mint">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex mint flex-column align-items-center">
-        <h1>
+        <h1 class=" ml-md-5">
           <b>
 
             KEEPR

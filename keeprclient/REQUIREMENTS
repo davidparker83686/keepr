@@ -1,3 +1,4 @@
+All Invalid Auth API Tests pass
 test vault keeps sql statment in setup and tst it with teh id that post man i using the way we did with harrison. 
 #All Valid Auth API Tests pass(ALMOST THER)
 #All No Auth API Tests pass(ALMOST THERE)
@@ -22,22 +23,3 @@ Anytime a keep is kept in a vault the keep count is incremented(need to fix)
 ###########UI adheres to all phases of CodeWorks Design Requirements
 
 ###On the vault page, if the vault is private and not the active users the request fails(possibli\y)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-All Invalid Auth API Tests pass

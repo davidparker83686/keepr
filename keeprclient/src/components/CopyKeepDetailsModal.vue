@@ -1,5 +1,5 @@
 <template>
-  <div class="modal modal-xlg"
+  <div class="modal height"
        id="copyKeepDetailsModal"
        tabindex="-1"
        role="dialog"
@@ -8,7 +8,7 @@
        style="min-width:80vw;"
   >
     <!-- :id="'keepDetailsModal'+ keepProp.id" -->
-    <div class="modal-dialog modal-xlg col" role="document">
+    <div class="modal-dialog modal-lg " role="document">
       <div class=" modal-content minview ">
         <!-- ________________________________________________________________________________________________________ -->
 
@@ -46,9 +46,21 @@
               <div class="mx-2">
                 {{ state.activeKeep.keeps }} <i class="fab fa-kaggle"></i>
               </div>
-              <!-- {{ state.activeKeep.shares }}<i class="fas fa-share"></i> -->
             </div>
-            <div class="row justify-content-around">
+            <div class="row justify-content-end">
+              <div v-if="state.activeKeep.creatorId == state.account.id">
+                <button type="button"
+                        class="btn btn-outline-none shadow-none text-danger"
+                        title="Delete Keep"
+                        aria-label="Delete Keep"
+                        @click="deleteKeep(state.activeKeep.id)"
+                        data-dismiss="modal"
+                >
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </div>
+            </div>
+            <div class="row justify-content-around align-self-end">
               <div class="col-5 text-left">
                 <div class="dropdown  d-flex justify-content-center mb-2" v-if="state.usersVaults.length >0">
                   <button class="btn drop btn-success dropdown-togglen w-100 mt-1 mb-2 mx-2"
@@ -69,9 +81,6 @@
                          @click="createVaultKeep(vault.id) "
                          data-dismiss="modal"
                     >
-                      <span>
-                        hi
-                      </span>
                       {{ vault.name }}
                     </div>
                   </div>
@@ -89,7 +98,7 @@
                   </router-link>
                 </div>
                 <!-- ________________________________________________________________________________________________________ -->
-                <div v-if="state.activeKeep.creatorId == state.account.id">
+                <!-- <div v-if="state.activeKeep.creatorId == state.account.id">
                   <button type="button"
                           class="btn btn-outline-none shadow-none text-danger"
                           title="Delete Keep"
@@ -99,7 +108,7 @@
                   >
                     <i class="fas fa-trash-alt"></i>
                   </button>
-                </div>
+                </div> -->
                 <!-- ______________________________________________________________________________________________________ -->
               </div>
             </div>
@@ -171,7 +180,7 @@ export default {
       },
       async createVaultKeep(id) {
         try {
-          await keepsService.createVaultKeep(id, state.activeKeep.id, state.account.id)
+          await keepsService.createVaultKeep(id, state.activeKeep.id)
           await keepsService.addKeepKeepCount(state.activeKeep.id)
           state.activeKeep = {}
         } catch (error) {
@@ -207,5 +216,8 @@ cursor: pointer
 }
 .inline{
     display: inline-block
+}
+.height{
+  min-height: 100rem;
 }
 </style>

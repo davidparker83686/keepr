@@ -53,6 +53,16 @@ namespace keepr.Controllers
       {
         // TODO[epic=Auth] Get the user info to set the creatorID
         Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+
+
+        Vault vaults = _vaultsService.GetById(id);
+        if (vaults.CreatorId != userInfo.Id)
+        {
+          throw new Exception("This Vault isnt yours");
+        }
+
+
+
         // safety to make sure an account exists for that user before CREATE-ing stuff.
         _vaultsService.Delete(id, userInfo.Id);
         return Ok("Deleted");
@@ -94,7 +104,7 @@ namespace keepr.Controllers
     // }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Vault>> GetByIdAsync(int id)
+    public async Task<ActionResult<Vault>> GetById(int id)
     {
       try
       {
@@ -125,9 +135,6 @@ namespace keepr.Controllers
         {
           throw new Exception("This vault is private");
         }
-
-
-
         IEnumerable<Keep> keeps = _vaultsService.GetKeepByVault(id);
         return Ok(keeps);
       }
@@ -139,10 +146,21 @@ namespace keepr.Controllers
     // -----------------------------------------------------------------------------------------------------
     [HttpPut("{id}")]
     [Authorize]
-    public ActionResult<Vault> Update(int id, [FromBody] Vault update)
+    public async Task<ActionResult<Vault>> UpdateAsync(int id, [FromBody] Vault update)
     {
       try
       {
+        Account userInfo = await HttpContext.GetUserInfoAsync<Account>();
+        Vault vaults = _vaultsService.GetById(id);
+        if (vaults.CreatorId != userInfo.Id)
+        {
+          throw new Exception("This Vault isnt yours");
+        }
+
+
+
+
+
         update.Id = id;
         Vault updated = _vaultsService.Update(update);
         return Ok(updated);

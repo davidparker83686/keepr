@@ -1,8 +1,7 @@
 <template>
-  <div class="position-relative " style="min-width:20vw;">
+  <div class="position-relative my-3" type="button card" data-toggle="modal" data-target="#copyKeepDetailsModal" @click="activeKeep(keep)">
     <button v-if=" keep.vaultKeepId "
-            type="
-                  button"
+            type="button"
             class="btn btn-outline-none shadow-none  position-absolute  mt-2 text-danger"
             title="Delete Keep"
             aria-label="Delete Keep"
@@ -11,22 +10,21 @@
     >
       <i class="fas fa-trash-alt"></i>
     </button>
-    <button type="button card" class="btn btn-none shadow-none" data-toggle="modal" data-target="#copyKeepDetailsModal">
-      <div class="row  justify-content-between" @click="activeKeep(keep)">
-        <div class="col-10 d-flex justify-content-between" v-if="keep.creator">
-          <h4 class="position-absolute m-2">
-            {{ keep.name }}
-          </h4>
-          <img :src="keep.creator.picture " class="m-2 rounded-circle small-img position-absolute" alt="">
-        </div>
-
-        <img :src="keep.img" class="img-fluid rounded" style="min-width:100px;" alt="">
+    <div class="position-absolute w-100 d-flex justify-content-between bottom">
+      <h4 class="m-2 text backg ">
+        <b>
+          {{ keep.name.toUpperCase() }}
+        </b>
+      </h4>
+      <div>
+        <img :src="keep.creator.picture " class="m-2 glow rounded-circle small-img" alt="">
       </div>
-    </button>
+    </div>
 
+    <img :src="keep.img" class="img-fluid rounded" style="min-width:100px;" alt="">
     <CopyKeepDetailsModal />
-  </div>
   <!-- @click="addView()" -->
+  </div>
 </template>
 
 <script>
@@ -129,6 +127,9 @@ justify-content: space-around;
 /* .grid-image{
 
 } */
+.bottom{
+  bottom: 0;
+}
  img{
    width: 100%
  }
@@ -136,4 +137,18 @@ justify-content: space-around;
    width: 1em;
    left: 0;
    top: 5px}
+   .glow{
+       box-shadow: 0 0 3em 0.5em white;
+   }
+   .backg{
+     background-color: rgba(255, 255, 255, 0.479);
+     border-radius: 5px;
+   }
 </style>
+
+  //  .text{
+  //      color: black;
+  // -webkit-text-fill-color: black; /* Will override color (regardless of order) */
+  // -webkit-text-stroke-width: .2px;
+  // -webkit-text-stroke-color: white;
+  //  }

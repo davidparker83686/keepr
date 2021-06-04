@@ -1,15 +1,13 @@
 <template>
-  <div class="position-relative ">
-    <div class="card " style="max-width:10vw;">
-      <router-link style="color: inherit;" :to="{name: 'Vaults', params: {id: vault.id}}" @click="activeVault(vault.id)">
-        <div class="row justify-content-between">
-          <h4 class="position-absolute m-2">
-            {{ vault.name }}
-          </h4>
-          <img v-if="vault.img" class="img-fluid rounded " :src="vault.img " alt="Vault Image">
-        </div>
-      </router-link>
-    </div>
+  <div class="card my-2" style="max-width:20vw;">
+    <router-link style="color: inherit;" :to="{name: 'Vaults', params: {id: vault.id}}" @click="activeVault(vault.id)">
+      <div class="row justify-content-between">
+        <h4 class="position-absolute m-2">
+          {{ vault.name }}
+        </h4>
+        <img v-if="vault.img" class="img-fluid rounded " :src="vault.img " alt="Vault Image">
+      </div>
+    </router-link>
   </div>
 </template>
 
