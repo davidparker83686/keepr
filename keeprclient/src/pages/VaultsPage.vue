@@ -1,15 +1,17 @@
 <template>
-  <div class="vaultspage container-fluid">
+  <div class="vaultspage container-fluid m-0 p-0s">
     <!-- Profile info -->
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 m-5">
         <h3>
           {{ state.activeVault.name }}
         </h3>
         <!-- <div v-if="state.activeVault.creatorId== state.account.id"> -->
-        <button type="button" title="Delete Vault" aria-label="Delete Vault" class="btn btn-none text-danger" @click="deleteVault(state.activeVault.id)">
-          <i class="fas fa-trash-alt"></i>
-        </button>
+        <div v-if="state.activeVault.creatorId == state.account.id">
+          <button type="button" title="Delete Vault" aria-label="Delete Vault" class=" btn-none shadow-none border-none text-danger" @click="deleteVault(state.activeVault.id)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
       </div>
     </div>
     <div class="col-12">
@@ -18,7 +20,7 @@
   </div>
   <div class="row">
     <div class="col-12 " v-if="keeps">
-      <Keep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />
+      <Keep v-for="keep in state.vaultkeeps" :key="keep.id" :keep="keep" />
     </div>
   </div>
   <!-- </div> -->
@@ -42,6 +44,7 @@ export default {
       keep: computed(() => AppState.keeps),
       activeVault: computed(() => AppState.activeVault),
       activeAccount: computed(() => AppState.activeAccount),
+      accountVaults: computed(() => AppState.accountVaults),
       account: computed(() => AppState.account),
       user: computed(() => AppState.user)
     })

@@ -3,12 +3,12 @@
     <!-- Profile info -->
     <div class="row">
       <div class="col-md-3 ">
-        <img :src="state.account.picture" class=" imgsize" alt="Profile Pic">
+        <img :src="state.activeProfile.picture" class=" imgsize" alt="Profile Pic">
         <!-- {{ state.account.picture }} -->
       </div>
       <div class="col-md-8 p-0">
         <span class="biggest-font-size" v-if="state.account">
-          <!-- {{ state.account .name.toUpperCase() }} -->
+          {{ state.activeProfile.name }}
         </span>
         <br>
         <span class="smallest-font-size">Vaults:{{ getUserVaults() }} </span>
@@ -31,7 +31,7 @@
         </button>
       </div>
       <div class="col">
-        <Vault v-for="vault in state.vaults" :key="vault.id" :vault="vault" />
+        <Vault v-for="vault in state.accountVaults" :key="vault.id" :vault="vault" />
         <!-- <Keep  v-for="keep in state.keeps" :key="keep.id" :keep="keep" /> -->
       </div>
     </div>
@@ -50,7 +50,7 @@
         </button>
       </div>
       <div class="col">
-        <Keep v-for="keep in state.keeps" :key="keep.id" :keep="keep" />
+        <Keep v-for="keep in state.accountKeeps" :key="keep.id" :keep="keep" />
       </div>
     </div>
     <new-keep-modal />
@@ -74,7 +74,9 @@ export default {
     const state = reactive({
       keeps: computed(() => AppState.keeps),
       vaults: computed(() => AppState.vaults),
-      activeAccount: computed(() => AppState.activeAccount),
+      activeProfile: computed(() => AppState.activeProfile),
+      accountVaults: computed(() => AppState.accountVaults),
+      accountKeeps: computed(() => AppState.accountKeeps),
       account: computed(() => AppState.account),
       user: computed(() => AppState.user)
     })
@@ -86,8 +88,8 @@ export default {
         // if (!state.loading) {
         //   await accountService.getActive(route.params.id)
         // }
-        await keepsService.getKeepsByUserId(route.params.id)
-        await vaultsService.getVaultsByUserId(route.params.id)
+        await keepsService.getKeepsByProfile(route.params.id)
+        await vaultsService.getVaultsByProfile(route.params.id)
       } catch (error) {
         console.error(error)
       }
@@ -97,11 +99,11 @@ export default {
       state,
       route,
       getUserKeeps() {
-        const totalKeeps = state.keeps.length
+        const totalKeeps = state.accountKeeps.length
         return totalKeeps
       },
       getUserVaults() {
-        const totalVaults = state.vaults.length
+        const totalVaults = state.accountVaults.length
         return totalVaults
       }
 

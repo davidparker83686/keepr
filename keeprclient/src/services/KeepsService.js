@@ -1,6 +1,7 @@
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
+// import { vaultsService } from './VaultsService'
 
 class KeepsService {
   async getAllKeeps() {
@@ -20,6 +21,11 @@ class KeepsService {
     AppState.keeps = res.data
   }
 
+  async getKeepsByProfile(id) {
+    const res = await api.get(`api/profiles/${id}/keeps`)
+    AppState.accountKeeps = res.data
+  }
+
   async deleteKeep(id) {
     await api.delete(`api/keeps/${id}`)
     AppState.keeps = AppState.keeps.filter(i => i.id !== id)
@@ -36,12 +42,27 @@ class KeepsService {
     AppState.keeps[viewedKeep] = keep
   }
 
-  async addToVault(id1, id2) {
-    const newVaultKeep = await api.get(`api/keeps/${id1}`)
+  async createVaultKeep(vId, kId) {
+    // const newVaultKeep = await api.get(`api/keeps/${kId}`)
+
+    const newVaultKeep = { vaultId: vId, keepId: kId }
+
     const res = await api.post('api/vaultkeeps', newVaultKeep)
-    res.vaultId = id2
-    AppState.vaultkeeps.push(res.data)
+
+    AppState.vaultKeeps.push(res.data)
+    logger.log(AppState.vaultKeeps)
+  }
+
+  async addKeepKeepCount(id) {
+    const keep = await api.get(`api/keeps/${id}`)
+    keep.keeps = keep.keeps + 1
+    // AppState.keeps[keep] = keep
+    const keptKeep = AppState.keeps.findIndex(k => k.id === id)
+    AppState.keeps[keptKeep] = keep
   }
 }
 
 export const keepsService = new KeepsService()
+
+// vaultsService.getKeepsByVaultId(newVaultKeep.vaultId)
+// newVaultKeep.vaultId = vId

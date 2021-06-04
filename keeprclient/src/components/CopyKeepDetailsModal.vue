@@ -34,9 +34,13 @@
               {{ state.activeKeep.description }}
             </div>
             <div class="row justify-content-center my-3">
-              {{ state.activeKeep.views }}<i class="far fa-eye"></i>
-              {{ state.activeKeep.keeps }} <i class="fab fa-kaggle"></i>
-              {{ state.activeKeep.shares }}<i class="fas fa-share"></i>
+              <div class="mx-2">
+                {{ state.activeKeep.views }}<i class="far fa-eye"></i>
+              </div>
+              <div class="mx-2">
+                {{ state.activeKeep.keeps }} <i class="fab fa-kaggle"></i>
+              </div>
+              <!-- {{ state.activeKeep.shares }}<i class="fas fa-share"></i> -->
             </div>
             <div class="row justify-content-around">
               <div class="col-5 text-left">
@@ -67,15 +71,21 @@
 
                 <div v-if="state.activeKeep.creatorId">
                   <!-- <div v-if="state.activeKeep.creatorId != state.account.id"> -->
-                  <router-link style="color: inherit;" :to="{name: 'Profiles', params: {id: state.activeKeep.creatorId}} ">
+                  <router-link style="color: inherit;" :to="{name: 'Profiles', params: {id: state.activeKeep.creatorId}} " @click="makeActiveProfile(state.activeKeep.creatorId)">
                     <img class="rounded-circle minipix inline" :src="state.activeKeep.creator.picture" alt="Creator Photo">
                     <span class="inline">{{ (state.activeKeep.creator.name.split('@')[0]) }}</span>
                   </router-link>
                 </div>
                 <!-- ________________________________________________________________________________________________________ -->
                 <div v-if="state.activeKeep.creatorId == state.account.id">
-                  <button type="button" class="btn btn-outline-danger" @click="deleteKeep(state.activeKeep.id)" data-dismiss="modal">
-                    Delete Keep
+                  <button type="button"
+                          class="btn btn-outline-danger"
+                          title="Delete Vault"
+                          aria-label="Delete Vault"
+                          @click="deleteKeep(state.activeKeep.id)"
+                          data-dismiss="modal"
+                  >
+                    <i class="fas fa-trash-alt"></i>
                   </button>
                 </div>
                 <!-- ______________________________________________________________________________________________________ -->
@@ -138,9 +148,17 @@ export default {
           logger.error(error)
         }
       },
+      async makeActiveProfile(id) {
+        try {
+          await keepsService.makeActiveProfile(id)
+        } catch (error) {
+          logger.error(error)
+        }
+      },
       async createVaultKeep(id) {
         try {
           await keepsService.createVaultKeep(id, state.activeKeep.id)
+          await keepsService.addKeepKeepCount(state.activeKeep.id)
           state.activeKeep = {}
           '#copyKeepDetailsModal'.modal('hide')
         } catch (error) {

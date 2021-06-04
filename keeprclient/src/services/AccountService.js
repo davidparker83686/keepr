@@ -17,6 +17,12 @@ class AccountService {
 
     AppState.activeAccount = res.data
   }
+
+  async makeActiveProfile(id) {
+    const res = await api.get(`api/profiles/${id}`)
+    AppState.activeProfile = res.data
+    logger.log(AppState.activeProfile)
+  }
 }
 
 export const accountService = new AccountService()

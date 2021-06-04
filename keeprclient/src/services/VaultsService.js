@@ -13,6 +13,12 @@ class VaultsService {
   async getVaultsByUserId(id) {
     const res = await api.get(`api/profiles/${id}/vaults`)
     AppState.vaults = res.data
+    // AppState.accountVaults = res.data
+  }
+
+  async getVaultsByProfile(id) {
+    const res = await api.get(`api/profiles/${id}/vaults`)
+    AppState.accountVaults = res.data
   }
 
   async deleteVault(id) {
@@ -31,6 +37,11 @@ class VaultsService {
     logger.log(vault)
     await api.get('api/vaults/' + vault.id, vault)
     AppState.activeVault = vault
+  }
+
+  async getKeepsByVaultId(id) {
+    const res = await api.get(`api/vaults/${id}/keeps`)
+    return res.data
   }
 }
 

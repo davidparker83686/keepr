@@ -1,12 +1,13 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg mint">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <img
-          alt="logo"
-          src="../assets/img/cw-logo.png"
-          height="45"
-        />
+      <div class="d-flex mint flex-column align-items-center">
+        <h1>
+          <b>
+
+            KEEPR
+          </b>
+        </h1>
       </div>
     </router-link>
     <button
@@ -22,9 +23,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <router-link :to="{ name: 'Home' }" class="nav-link">
-            Home
+        <li class="nav-item ">
+          <router-link :to="{ name: 'Home' }" class="nav-link ">
+            <span class="darktext">
+              <b>
+
+                HOME
+              </b>
+            </span>
           </router-link>
         </li>
         <!-- <li class="nav-item">
@@ -51,7 +57,7 @@
               :src="user.picture"
               alt="user photo"
               height="40"
-              class="rounded"
+              class="rounded-circle"
             />
             <span class="mx-3">{{ user.name }}</span>
           </div>
@@ -61,9 +67,9 @@
             @click="state.dropOpen = false"
           >
             <router-link :to="{ name: 'Account' }">
-              <div class="list-group-item list-group-item-action hoverable">
+              <!-- <div class="list-group-item list-group-item-action hoverable">
                 Account
-              </div>
+              </div> -->
             </router-link>
             <div
               class="list-group-item list-group-item-action hoverable"
@@ -124,4 +130,12 @@ a:hover {
 .nav-item .nav-link.router-link-exact-active{
   color: var(--primary);
 }
+.mint{
+  background-color: mediumaquamarine;
+  color: rgb(0, 0, 29)
+}
+.darktext{
+  color: rgb(0, 0, 29)
+}
+
 </style>
