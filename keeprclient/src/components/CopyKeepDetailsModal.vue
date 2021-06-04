@@ -80,8 +80,8 @@
                 <div v-if="state.activeKeep.creatorId == state.account.id">
                   <button type="button"
                           class="btn btn-outline-danger"
-                          title="Delete Vault"
-                          aria-label="Delete Vault"
+                          title="Delete Keep"
+                          aria-label="Delete Keep"
                           @click="deleteKeep(state.activeKeep.id)"
                           data-dismiss="modal"
                   >
@@ -107,6 +107,7 @@ import Notification from '../utils/Notification'
 import { AppState } from '../AppState'
 // import { accountService } from '../services/AccountService'
 import { logger } from '../utils/Logger'
+import { accountService } from '../services/AccountService'
 
 export default {
   name: 'CopyKeepDetailsModal',
@@ -150,7 +151,7 @@ export default {
       },
       async makeActiveProfile(id) {
         try {
-          await keepsService.makeActiveProfile(id)
+          await accountService.makeActiveProfile(id)
         } catch (error) {
           logger.error(error)
         }

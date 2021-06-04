@@ -16,9 +16,12 @@ class VaultsService {
     // AppState.accountVaults = res.data
   }
 
-  async getVaultsByProfile(id) {
+  async getVaultsByProfile(id, id2) {
     const res = await api.get(`api/profiles/${id}/vaults`)
     AppState.accountVaults = res.data
+    if (id !== id2) {
+      AppState.accountVaults = AppState.accountVaults.filter(v => v.isPrivate !== true)
+    }
   }
 
   async deleteVault(id) {

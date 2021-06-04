@@ -62,7 +62,7 @@
 import { computed, onMounted, reactive } from 'vue'
 import { AppState } from '../AppState'
 import { useRoute } from 'vue-router'
-// import { accountService } from '../services/AccountService'
+import { accountService } from '../services/AccountService'
 import { keepsService } from '../services/KeepsService'
 import { vaultsService } from '../services/VaultsService'
 import NewKeepModal from '../components/NewKeepModal.vue'
@@ -89,7 +89,9 @@ export default {
         //   await accountService.getActive(route.params.id)
         // }
         await keepsService.getKeepsByProfile(route.params.id)
-        await vaultsService.getVaultsByProfile(route.params.id)
+        await accountService.makeActiveProfile(route.params.id)
+        await keepsService.getKeepsByProfile(route.params.id)
+        await vaultsService.getVaultsByProfile(route.params.id, state.account.id)
       } catch (error) {
         console.error(error)
       }
