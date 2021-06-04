@@ -1,6 +1,6 @@
 <template>
   <div class="position-relative m-3" style="min-width:20vw;">
-    <button type="button" class="btn btn-none shadow-none" data-toggle="modal" data-target="#copyKeepDetailsModal">
+    <button type="button card" class="btn btn-none shadow-none" data-toggle="modal" data-target="#copyKeepDetailsModal">
       <div class="row  justify-content-between" @click="activeKeep(keep)">
         <div class="col-10 d-flex justify-content-between" v-if="keep.creator">
           <h4 class="position-absolute m-2">
@@ -8,7 +8,7 @@
           </h4>
           <img :src="keep.creator.picture " class="m-2 rounded-circle small-img position-absolute" alt="">
         </div>
-        <img :src="keep.img" class="img-fluid" style="min-width:100px;" alt="">
+        <img :src="keep.img" class="img-fluid " style="min-width:100px;" alt="">
       </div>
     </button>
 

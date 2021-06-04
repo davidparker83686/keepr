@@ -30,8 +30,10 @@
           <i class="fas fa-plus"></i>
         </button>
       </div>
-      <div class="col">
-        <Vault v-for="vault in state.accountVaults" :key="vault.id" :vault="vault" />
+      <div class="col-12">
+        <div class="card-columns">
+          <Vault v-for="vault in state.accountVaults" :key="vault.id" :vault="vault" />
+        </div>
         <!-- <Keep  v-for="keep in state.keeps" :key="keep.id" :keep="keep" /> -->
       </div>
     </div>
@@ -49,8 +51,10 @@
           <i class="fas fa-plus"></i>
         </button>
       </div>
-      <div class="col">
-        <Keep v-for="keep in state.accountKeeps" :key="keep.id" :keep="keep" />
+      <div class="col-12">
+        <div class="card-columns">
+          <Keep v-for="keep in state.accountKeeps" :key="keep.id" :keep="keep" />
+        </div>
       </div>
     </div>
     <new-keep-modal />

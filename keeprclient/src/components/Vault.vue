@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="position-relative">
     <div class="card cardbg" style="max-width:10vw;">
       <router-link style="color: inherit;" :to="{name: 'Vaults', params: {id: vault.id}}" @click="activeVault(vault.id)">
         <div class="row justify-content-between">
-          <span>
+          <h4 class="position-absolute m-2">
             {{ vault.name }}
-          </span>
-          <img :src="vault.img " alt="Vault Image">
+          </h4>
+          <img v-if="vault.img" class="img-fluid" :src="vault.img " alt="Vault Image">
         </div>
       </router-link>
     </div>
@@ -86,4 +86,7 @@ justify-content: space-around;
 /* .cardbg{
   :background-image: vault.img;
 } */
+img{
+  width: 100%;
+}
 </style>
