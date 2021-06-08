@@ -112,10 +112,11 @@ namespace keepr
       app.UseStaticFiles();
 
       app.UseRouting();
-
       app.UseAuthentication();
-
       app.UseAuthorization();
+
+      app.UseDefaultFiles();
+      app.UseStaticFiles();
 
       app.UseEndpoints(endpoints =>
       {
