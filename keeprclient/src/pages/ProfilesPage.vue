@@ -21,11 +21,12 @@
       <div class="col-12 mt-md-5">
         <span class="middle-font-size">Vaults</span>
         <button type="button"
-                class="btn btn-none shadow-none text-success"
+                class="btn btn-none shadow-none font-size text-success mb-1"
                 data-toggle="modal"
                 title="Create Vault"
                 aria="Create Vault"
                 data-target="#newVaultModal"
+                v-if="route.params.id==state.account.id"
         >
           <i class="fas fa-plus"></i>
         </button>
@@ -39,11 +40,12 @@
       <div class="col-12">
         <span class="middle-font-size">Keeps</span>
         <button type="button"
-                class="btn btn-none shadow-none text-success"
+                class="btn btn-none shadow-none font-size text-success mb-1"
                 title="Create Keep"
                 aria="Create Vault"
                 data-toggle="modal"
                 data-target="#newKeepModal"
+                v-if="route.params.id==state.account.id"
         >
           <i class="fas fa-plus"></i>
         </button>
@@ -131,5 +133,8 @@ font-size: 2rem;
 }
 .smallest-font-size{
   font-size: 2rem;
+}
+.font-size{
+  font-size: 20px;
 }
 </style>

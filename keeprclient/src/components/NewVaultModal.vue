@@ -23,7 +23,7 @@
                        id="name"
                        placeholder="Title..."
                        minlength="3"
-                       maxlength="50"
+                       maxlength="100"
                        v-model="state.newVault.name"
                        required
                 >
@@ -35,7 +35,7 @@
                        id="description"
                        placeholder="Description..."
                        minlength="3"
-                       maxlength="200"
+                       maxlength="2000"
                        v-model="state.newVault.description"
                 >
               </div>
@@ -51,14 +51,14 @@
                 >
               </div>
 
-              <div class="form-group form-check">
+              <!-- <div class="form-group form-check">
                 <label class="form-check-label" for="isPrivate">Make Private</label>
                 <input type="checkbox"
                        class="form-check-input"
                        id="isPrivate"
                        v-model="state.newVault.isPrivate"
                 >
-              </div>
+              </div> -->
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">

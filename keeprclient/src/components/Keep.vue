@@ -17,11 +17,11 @@
         </b>
       </h4>
       <div>
-        <img :src="keep.creator.picture " class="m-2 glow rounded-circle small-img" alt="">
+        <img :src="keep.creator.picture " class="m-2 glow rounded-circle small-img" alt="" v-if="keep.creator">
       </div>
     </div>
 
-    <img :src="keep.img" class="img-fluid rounded" style="min-width:100px;" alt="">
+    <img :src="keep.img" class="img-fluid rounded" style="min-width:100px;" alt="" v-if="keep">
     <CopyKeepDetailsModal />
   <!-- @click="addView()" -->
   </div>

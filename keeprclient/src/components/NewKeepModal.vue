@@ -23,7 +23,7 @@
                        id="name"
                        placeholder="Title..."
                        minlength="3"
-                       maxlength="50"
+                       maxlength="500"
                        v-model="state.newKeep.name"
                        required
                 >
@@ -35,7 +35,7 @@
                        id="description"
                        placeholder="Description..."
                        minlength="3"
-                       maxlength="200"
+                       maxlength="2000"
                        v-model="state.newKeep.description"
                 >
               </div>
