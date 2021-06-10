@@ -77,20 +77,24 @@ namespace keepr
     {
       services.AddAuthentication(options =>
       {
+
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
       }).AddJwtBearer(options =>
       {
+        options.Authority = $"https://{Configuration["AUTH0_DOMAIN"]}/";
+        options.Audience = Configuration["AUTH0_AUDIENCE"];
         // NOTE this must match the object structure in appsettings.json
-        options.Authority = $"https://{Configuration["Auth0:Domain"]}/";
-        options.Audience = Configuration["Auth0:Audience"];
+        // options.Authority = $"https://{Configuration["Auth0:Domain"]}/";
+        // options.Audience = Configuration["Auth0:Audience"];
       });
     }
 
     private IDbConnection CreateDbConnection()
     {
       // NOTE this must match the object structure in appsettings.json
-      string connectionString = Configuration["DB:gearhost"];
+      // string connectionString = Configuration["DB:gearhost"];
+      string connectionString = Configuration["CONNECTION_STRING"];
       return new MySqlConnection(connectionString);
     }
 
