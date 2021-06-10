@@ -2,27 +2,33 @@
   <div class="vaultspage container-fluid m-md-5">
     <div class="row">
       <div class="col-12 mb-5">
-        <h2 class="d-inline">
-          <b>
+        <div class="d-inline ">
+          <span class=" biggest-font-size">
+
             {{ state.activeVault.name }}
-          </b>
-        </h2>
+
+          </span>
+          <button v-if="state.activeVault.creatorId == state.account.id"
+                  type="button"
+                  title="Delete Vault"
+                  aria-label="Delete Vault"
+                  class=" btn mx-3 p-0 d-inline btn-none shadow-none border-none outline-none text-danger"
+                  @click="deleteVault(state.activeVault.id)"
+          >
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
+
+        <br>
+        <span>
+          {{ state.activeVault.description }}
+        </span>
         <br>
         <span>
           <b>
             KEEPS:{{ getVaultKeepsTotal() }}
           </b>
         </span>
-
-        <button v-if="state.activeVault.creatorId == state.account.id"
-                type="button"
-                title="Delete Vault"
-                aria-label="Delete Vault"
-                class=" btn mx-3 p-0 d-inline btn-none shadow-none border-none outline-none text-danger"
-                @click="deleteVault(state.activeVault.id)"
-        >
-          <i class="fas fa-trash-alt"></i>
-        </button>
       </div>
 
       <div class="col-12 " v-if="state.vaultKeeps">
@@ -99,5 +105,8 @@ export default {
 <style scoped>
 img {
   max-width: 100px;
+}
+.biggest-font-size{
+  font-size: 3rem;
 }
 </style>

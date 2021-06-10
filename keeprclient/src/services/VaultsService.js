@@ -57,4 +57,15 @@ class VaultsService {
   }
 }
 
+// function fizbuzz(number) {
+//   for (i = 0, i <= number.length, i++ ) {
+//     if (i % 3 == 0 && i % 5 == 0) {
+//       return "fizbuzz"
+//     } else if (i % 3 == 0) {
+//       return "fizz"
+//     }else if(i%5==0)
+//   }
+
+// }
+
 export const vaultsService = new VaultsService()

@@ -41,9 +41,11 @@ class KeepsService {
   }
 
   async activeKeep(keep) {
+    logger.log(keep)
     AppState.activeKeep = keep
-    // const res = await api.get(`api/keeps/${keep.id}`)
-    // return res.data
+    logger.log(AppState.activeKeep)
+    const res = await api.get(`api/keeps/${keep.id}`)
+    return res.data
   }
   // await api.put('api/keeps/' + keep.id, keep)
   // const viewedKeep = AppState.keeps.findIndex(k => k.id === keep.id)

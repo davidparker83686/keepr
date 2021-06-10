@@ -123,6 +123,7 @@ export default {
 } */
 .imgsize {
   min-width: 15rem;
+  max-width: 20rem;
   height: auto;
 }
 .biggest-font-size{

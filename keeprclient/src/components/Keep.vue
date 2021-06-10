@@ -1,6 +1,6 @@
 <template>
   <div class="position-relative my-3" type="button card" data-toggle="modal" data-target="#copyKeepDetailsModal" @click="activeKeep(keep)">
-    <button v-if=" keep.vaultKeepId "
+    <!-- <button v-if=" keep.vaultKeepId "
             type="button"
             class="btn btn-outline-none shadow-none  position-absolute  mt-2 text-danger"
             title="Delete Keep"
@@ -9,7 +9,7 @@
             data-dismiss="modal"
     >
       <i class="fas fa-trash-alt"></i>
-    </button>
+    </button> -->
     <div class="position-absolute w-100 d-flex justify-content-between bottom">
       <h4 class="m-2 text backg ">
         <b>

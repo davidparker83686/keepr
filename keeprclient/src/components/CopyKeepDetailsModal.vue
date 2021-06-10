@@ -181,7 +181,7 @@ export default {
       async createVaultKeep(id) {
         try {
           await keepsService.createVaultKeep(id, state.activeKeep.id)
-          await keepsService.addKeepKeepCount(state.activeKeep.id)
+          // await keepsService.addKeepKeepCount(state.activeKeep.id)
           state.activeKeep = {}
         } catch (error) {
           logger.error(error)

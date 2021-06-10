@@ -30,14 +30,15 @@
               </div>
               <div class="form-group">
                 <label for="description">Description</label>
-                <input type="text"
-                       class="form-control"
-                       id="description"
-                       placeholder="Description..."
-                       minlength="3"
-                       maxlength="2000"
-                       v-model="state.newKeep.description"
+                <textarea type="text"
+                          class="form-control"
+                          id="description"
+                          placeholder="Description..."
+                          minlength="3"
+                          maxlength="2000"
+                          v-model="state.newKeep.description"
                 >
+                </textarea>
               </div>
               <div class="form-group">
                 <label for="img">Image URL</label>
