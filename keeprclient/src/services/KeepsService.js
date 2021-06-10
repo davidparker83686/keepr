@@ -4,15 +4,15 @@ import { api } from './AxiosService'
 import Notification from '../utils/Notification'
 
 class KeepsService {
+  async getKeepsByUserId(id) {
+    const res = await api.get(`api/profiles/${id}/keeps`)
+    AppState.keeps = res.data
+  }
+
   async getAllKeeps() {
     const res = await api.get('api/keeps')
     AppState.keeps = res.data
     logger.log(res.data)
-  }
-
-  async getKeepsByUserId(id) {
-    const res = await api.get(`api/profiles/${id}/keeps`)
-    AppState.keeps = res.data
   }
 
   async createKeep(newKeep) {
