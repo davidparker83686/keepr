@@ -10,17 +10,17 @@ class KeepsService {
     logger.log(res.data)
   }
 
+  async getKeepsByUserId(id) {
+    const res = await api.get(`api/profiles/${id}/keeps`)
+    AppState.keeps = res.data
+  }
+
   async createKeep(newKeep) {
     const res = await api.post('api/keeps', newKeep)
     AppState.keeps.push(res.data)
     // const id = newKeep.creatorId
     Notification.toast('Successfully Created Keep', 'success')
     // this.getKeepsByProfile(id)
-  }
-
-  async getKeepsByUserId(id) {
-    const res = await api.get(`api/profiles/${id}/keeps`)
-    AppState.keeps = res.data
   }
 
   async getKeepsByProfile(id) {
